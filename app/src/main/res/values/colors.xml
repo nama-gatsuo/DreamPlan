@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_dark">#1B5E20</color>
+    <color name="primary">#43A047</color>
+    <color name="accent">#E91E63</color>
+    <color name="accent_dark">#C2185B</color>
+    <color name="background">#FFFFFF</color>
+
+    <color name="custom_text_color_normal">#ffffffff</color>
+    <color name="custom_text_color_disabled">#ffb2b2b2</color>
+    <color name="custom_divider_color">#ffffffff</color>
+    <color name="custom_button_background">#00000000</color>
+    <color name="custom_button_background_pressed">#ffcc6600</color>
+    <color name="custom_key_background">#00000000</color>
+    <color name="custom_key_background_pressed">#ffcc6600</color>
+    <color name="custom_keyboard_indicator_color">#ffcc6600</color>
+</resources>
