@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp">
+    <TextView
+        android:id="@+id/task_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="task sample"
+        android:textSize="24sp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="4dp" />
+    <TextView
+        android:id="@+id/task_startDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="yyyy/MM/dd"
+        android:textSize="12sp"
+        android:layout_alignLeft="@id/task_name"
+        android:layout_marginTop="4dp"
+        android:layout_below="@+id/task_name" />
+    <com.nama_gatsuo.dreamplan.View.TriangleView
+        android:id="@+id/tv"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_toRightOf="@id/task_startDate"
+        android:layout_alignTop="@id/task_startDate" />
+    <TextView
+        android:id="@+id/task_endDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="yyyy/MM/dd"
+        android:textSize="12sp"
+        android:layout_toRightOf="@+id/tv"
+        android:layout_alignTop="@id/tv" />
+
+
+</RelativeLayout>

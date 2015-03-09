@@ -7,6 +7,7 @@
     <string name="title_activity_task">TaskActivity</string>
     <string name="title_activity_create_task">CreateTaskActivity</string>
     <string name="hello_blank_fragment">YYYY/MM/DD</string>
+
     <string-array name="spnStatus_items">
         <item id="0">0%</item>
         <item id="1">10%</item>
@@ -20,5 +21,8 @@
         <item id="9">90%</item>
         <item id="10">DONE</item>
     </string-array>
+
     <string name="spnStatus_prompt">選択する</string>
+    <string name="title_activity_sample">SampleActivity</string>
+
 </resources>

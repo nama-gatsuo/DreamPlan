@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.nama_gatsuo.dreamplan.TaskListActivity"
+            android:name=".TaskListActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,12 +17,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.nama_gatsuo.dreamplan.TaskEditActivity"
+            android:name=".TaskEditActivity"
             android:label="@string/title_activity_task" >
         </activity>
         <activity
-            android:name=".CreateTaskActivity"
-            android:label="@string/title_activity_create_task" >
+            android:name=".SampleActivity"
+            android:label="@string/title_activity_sample" >
         </activity>
     </application>
 

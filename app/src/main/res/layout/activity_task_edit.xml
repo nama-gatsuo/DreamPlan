@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.nama_gatsuo.dreamplan.DateView
+        <com.nama_gatsuo.dreamplan.View.DateView
             android:id="@+id/startDate"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.nama_gatsuo.dreamplan.DateView
+        <com.nama_gatsuo.dreamplan.View.DateView
             android:id="@+id/endDate"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
