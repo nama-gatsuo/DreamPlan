@@ -17,12 +17,13 @@
         android:text="yyyy/MM/dd"
         android:textSize="12sp"
         android:layout_alignLeft="@id/task_name"
-        android:layout_marginTop="4dp"
+        android:layout_marginRight="2dp"
         android:layout_below="@+id/task_name" />
     <com.nama_gatsuo.dreamplan.View.TriangleView
         android:id="@+id/tv"
         android:layout_width="18dp"
         android:layout_height="18dp"
+        android:layout_marginRight="2dp"
         android:layout_toRightOf="@id/task_startDate"
         android:layout_alignTop="@id/task_startDate" />
     <TextView

@@ -16,6 +16,7 @@ import com.nama_gatsuo.dreamplan.model.Task;
 
 import com.getbase.floatingactionbutton.AddFloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskListActivity extends Activity {
@@ -56,10 +57,12 @@ public class TaskListActivity extends Activity {
 
         // アダプターに渡すためのListを準備
         groups = taskDao.findAll();
+        children = new ArrayList<List<SubTask>>();
         for (Task task : groups) {
             List<SubTask> slist = subTaskDao.findByTaskID(task.getTaskID());
             if (slist.size() == 0) {
                 slist.add(new SubTask());
+                children.add(0, slist);
             } else {
                 children.add(slist);
             }

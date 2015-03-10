@@ -63,8 +63,8 @@ public class SubTaskDao {
             subTask.setName(c.getString(c.getColumnIndex(COLUMN_subTaskName)));
             subTask.setDescription(c.getString(c.getColumnIndexOrThrow(COLUMN_subTaskDescription)));
             subTask.setStatus(c.getInt(c.getColumnIndex(COLUMN_subTaskStatus)));
-            subTask.setStartDate(c.getInt(c.getColumnIndex(COLUMN_subTaskStartDate)));
-            subTask.setEndDate(c.getInt(c.getColumnIndex(COLUMN_subTaskEndDate)));
+            subTask.setStartDate(c.getLong(c.getColumnIndex(COLUMN_subTaskStartDate)));
+            subTask.setEndDate(c.getLong(c.getColumnIndex(COLUMN_subTaskEndDate)));
             list.add(subTask);
         }
         // Cursorのclose
@@ -87,8 +87,8 @@ public class SubTaskDao {
             subTask.setName(c.getString(c.getColumnIndex(COLUMN_subTaskName)));
             subTask.setDescription(c.getString(c.getColumnIndexOrThrow(COLUMN_subTaskDescription)));
             subTask.setStatus(c.getInt(c.getColumnIndex(COLUMN_subTaskStatus)));
-            subTask.setStartDate(c.getInt(c.getColumnIndex(COLUMN_subTaskStartDate)));
-            subTask.setEndDate(c.getInt(c.getColumnIndex(COLUMN_subTaskEndDate)));
+            subTask.setStartDate(c.getLong(c.getColumnIndex(COLUMN_subTaskStartDate)));
+            subTask.setEndDate(c.getLong(c.getColumnIndex(COLUMN_subTaskEndDate)));
             list.add(subTask);
         }
         // Cursorのclose
@@ -113,8 +113,8 @@ public class SubTaskDao {
             subTask.setName(c.getString(c.getColumnIndex(COLUMN_subTaskName)));
             subTask.setDescription(c.getString(c.getColumnIndexOrThrow(COLUMN_subTaskDescription)));
             subTask.setStatus(c.getInt(c.getColumnIndex(COLUMN_subTaskStatus)));
-            subTask.setStartDate(c.getInt(c.getColumnIndex(COLUMN_subTaskStartDate)));
-            subTask.setEndDate(c.getInt(c.getColumnIndex(COLUMN_subTaskEndDate)));
+            subTask.setStartDate(c.getLong(c.getColumnIndex(COLUMN_subTaskStartDate)));
+            subTask.setEndDate(c.getLong(c.getColumnIndex(COLUMN_subTaskEndDate)));
             list.add(subTask);
         }
         // Cursorのclose

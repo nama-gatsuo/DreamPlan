@@ -59,8 +59,8 @@ public class TaskDao {
             task.setName(c.getString(c.getColumnIndex(COLUMN_taskName)));
             task.setDescription(c.getString(c.getColumnIndexOrThrow(COLUMN_taskDescription)));
             task.setStatus(c.getInt(c.getColumnIndex(COLUMN_taskStatus)));
-            task.setStartDate(c.getInt(c.getColumnIndex(COLUMN_taskStartDate)));
-            task.setEndDate(c.getInt(c.getColumnIndex(COLUMN_taskEndDate)));
+            task.setStartDate(c.getLong(c.getColumnIndex(COLUMN_taskStartDate)));
+            task.setEndDate(c.getLong(c.getColumnIndex(COLUMN_taskEndDate)));
             list.add(task);
         }
         // Cursorのclose
@@ -82,8 +82,8 @@ public class TaskDao {
             task.setName(c.getString(c.getColumnIndex(COLUMN_taskName)));
             task.setDescription(c.getString(c.getColumnIndexOrThrow(COLUMN_taskDescription)));
             task.setStatus(c.getInt(c.getColumnIndex(COLUMN_taskStatus)));
-            task.setStartDate(c.getInt(c.getColumnIndex(COLUMN_taskStartDate)));
-            task.setEndDate(c.getInt(c.getColumnIndex(COLUMN_taskEndDate)));
+            task.setStartDate(c.getLong(c.getColumnIndex(COLUMN_taskStartDate)));
+            task.setEndDate(c.getLong(c.getColumnIndex(COLUMN_taskEndDate)));
             list.add(task);
         }
         // Cursorのclose
@@ -91,7 +91,7 @@ public class TaskDao {
         return list;
     }
 
-    // TasKIDを指定して取り出すメソッド
+    // TaskIDを指定して取り出すメソッド
     public Task findByTaskID(int taskID) {
         // WHERE句でCOLUMN_taskIDを指定してqueryを生成
         Cursor c = db.query(TABLE_NAME, COLUMNS, COLUMN_taskID + " = ?",
@@ -106,8 +106,8 @@ public class TaskDao {
             task.setName(c.getString(c.getColumnIndex(COLUMN_taskName)));
             task.setDescription(c.getString(c.getColumnIndexOrThrow(COLUMN_taskDescription)));
             task.setStatus(c.getInt(c.getColumnIndex(COLUMN_taskStatus)));
-            task.setStartDate(c.getInt(c.getColumnIndex(COLUMN_taskStartDate)));
-            task.setEndDate(c.getInt(c.getColumnIndex(COLUMN_taskEndDate)));
+            task.setStartDate(c.getLong(c.getColumnIndex(COLUMN_taskStartDate)));
+            task.setEndDate(c.getLong(c.getColumnIndex(COLUMN_taskEndDate)));
         }
         // Cursorのclose
         c.close();

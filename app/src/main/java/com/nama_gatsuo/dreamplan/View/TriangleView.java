@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.nama_gatsuo.dreamplan.R;
@@ -13,9 +12,9 @@ import com.nama_gatsuo.dreamplan.R;
 
 
 public class TriangleView extends View {
-    private int centerX = 8;
-    private int centerY = 9;
-    private int dis = 10; // 原点から各頂点への距離
+    private float centerX = 8;
+    private float centerY = 9;
+    private int dis = 8; // 原点から各頂点への距離
     private int[] degs = { 0, 120, 240 };
     private float scale;
 
@@ -33,11 +32,17 @@ public class TriangleView extends View {
         super(context, attrs, defStyle);
     }
 
+    public TriangleView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         scale = getContext().getResources().getDisplayMetrics().density;
-        canvas.scale(scale, scale);
+        centerX = centerX * scale;
+        centerY = centerY * scale;
 
         Paint p = new Paint();
         p.setColor(getResources().getColor(R.color.accent));
@@ -45,9 +50,13 @@ public class TriangleView extends View {
 
         Path path = new Path();
         for (int i : degs) {
-            double x = Math.cos(i * Math.PI / 180) * dis;
-            double y = Math.sin(i * Math.PI / 180) * dis;
-            path.lineTo((float)centerX + (float)x, (float)centerY + (float)y);
+            double x = Math.cos(i * Math.PI / 180) * dis * scale;
+            double y = Math.sin(i * Math.PI / 180) * dis * scale;
+            if (i == 0) {
+                path.moveTo(centerX + (float) x, centerY + (float) y);
+            } else {
+                path.lineTo(centerX + (float) x, centerY + (float) y);
+            }
         }
         path.close();
         canvas.drawPath(path, p);

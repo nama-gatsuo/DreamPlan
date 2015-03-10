@@ -82,11 +82,11 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView start_date = (TextView) groupView.findViewById(R.id.task_startDate);
         DateTime sdt = new DateTime().withMillis(task.getStartDate());
-        start_date.setText(sdt.toString(DateTimeFormat.longDate()));
+        start_date.setText(sdt.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 
         TextView end_date = (TextView) groupView.findViewById(R.id.task_endDate);
-        DateTime edt = new DateTime().withMillis(task.getStartDate());
-        end_date.setText(edt.toString(DateTimeFormat.longDate()));
+        DateTime edt = new DateTime().withMillis(task.getEndDate());
+        end_date.setText(edt.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 
         // Statusの表示をおこなう
 
@@ -96,7 +96,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if (childPosition == getChildrenCount(groupPosition) - 1) {
-            AbsListView.LayoutParams lp = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 100);
+            float scale = this.context.getResources().getDisplayMetrics().density;
+            AbsListView.LayoutParams lp = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int)(80 * scale));
             AbsListView.LayoutParams lp2 = new AbsListView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
             LinearLayout ll = new LinearLayout(context);
@@ -116,11 +117,11 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
             TextView start_date = (TextView) childView.findViewById(R.id.subTask_startDate);
             DateTime sdt = new DateTime().withMillis(subTask.getStartDate());
-            start_date.setText(sdt.toString(DateTimeFormat.longDate()));
+            start_date.setText(sdt.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 
             TextView end_date = (TextView) childView.findViewById(R.id.subTask_endDate);
             DateTime edt = new DateTime().withMillis(subTask.getStartDate());
-            end_date.setText(edt.toString(DateTimeFormat.longDate()));
+            end_date.setText(edt.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 
             // Statusの表示をおこなう
 
