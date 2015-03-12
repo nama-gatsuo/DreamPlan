@@ -20,7 +20,14 @@
         android:layout_alignParentStart="false"
         android:layout_alignParentEnd="false"
         android:layout_marginTop="4dp"
-        android:layout_below="@+id/task_name" />
+        android:layout_below="@id/subTask_name" />
+    <com.nama_gatsuo.dreamplan.View.TriangleView
+        android:id="@+id/stv"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginRight="2dp"
+        android:layout_toRightOf="@id/subTask_startDate"
+        android:layout_alignTop="@id/subTask_startDate" />
     <TextView
         android:id="@+id/subTask_endDate"
         android:layout_width="wrap_content"

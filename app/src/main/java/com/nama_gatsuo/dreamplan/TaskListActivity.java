@@ -1,7 +1,6 @@
 package com.nama_gatsuo.dreamplan;
 
 import android.app.Activity;
-import android.app.ExpandableListActivity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -26,6 +25,7 @@ public class TaskListActivity extends Activity {
     private int projectID;
     private List<Task> groups = null;
     private List<List<SubTask>> children = null;
+    private MyExpandableListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +34,35 @@ public class TaskListActivity extends Activity {
 
         // IntentでのProjectIDの受け取り
         Intent i = getIntent();
-        projectID = i.getIntExtra("projectID", 0);
+        projectID = i.getIntExtra("projectID", 1);
 
         // FABの設定
         afab = new AddFloatingActionButton(this);
-        afab = (AddFloatingActionButton)findViewById(R.id.fab);
+        afab = (AddFloatingActionButton) findViewById(R.id.fab);
         afab.setColorNormalResId(R.color.accent);
         afab.setColorPressedResId(R.color.accent_dark);
+        afab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), TaskEditActivity.class);
+                DatabaseHelper dbHelper = new DatabaseHelper(v.getContext());
+                db = dbHelper.getWritableDatabase();
+                TaskDao taskDao = new TaskDao(db);
+
+                // Taskがなければ最大のTaskIDに1を足す
+                int taskID;
+                if (!taskDao.exists()) {
+                    taskID = 1;
+                } else {
+                    taskID = taskDao.getLastID() + 1;
+                }
+
+                i.putExtra("ProjectID", projectID);
+                i.putExtra("TaskID", taskID);
+
+                v.getContext().startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -53,15 +75,21 @@ public class TaskListActivity extends Activity {
         TaskDao taskDao = new TaskDao(db);
         SubTaskDao subTaskDao = new SubTaskDao(db);
 
-        ExpandableListView elv = (ExpandableListView)findViewById(R.id.elv);
+        ExpandableListView elv = (ExpandableListView) findViewById(R.id.elv);
 
         // アダプターに渡すためのListを準備
         groups = taskDao.findAll();
         children = new ArrayList<List<SubTask>>();
+
+        // モデルをリストに格納
         for (Task task : groups) {
             List<SubTask> slist = subTaskDao.findByTaskID(task.getTaskID());
+            // task配下にsubTaskがなければ余分にSubTaskを作成してリストに渡す
             if (slist.size() == 0) {
-                slist.add(new SubTask());
+                SubTask subTask = new SubTask();
+                subTask.setTaskID(task.getTaskID());
+                subTask.setProjectID(this.projectID);
+                slist.add(subTask);
                 children.add(0, slist);
             } else {
                 children.add(slist);
@@ -69,34 +97,11 @@ public class TaskListActivity extends Activity {
         }
 
         // アダプターを準備&設定
-        MyExpandableListAdapter adapter = new MyExpandableListAdapter(this, groups, children);
+        adapter = new MyExpandableListAdapter(this, groups, children);
         elv.setAdapter(adapter);
 
         // データが入っていない時の表示
-        emptyTextView = (TextView)findViewById(R.id.emptyTextView);
+        emptyTextView = (TextView) findViewById(R.id.emptyTextView);
         elv.setEmptyView(emptyTextView);
     }
-
-    // FabによるTask作成
-    public void onClickFab(View v) {
-        Intent i = new Intent(this, TaskEditActivity.class);
-        int taskID;
-
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-        db = dbHelper.getWritableDatabase();
-        TaskDao taskDao = new TaskDao(db);
-
-        // Taskがなければ最大のTaskIDに1を足す
-        if (!taskDao.exists()) {
-            taskID = 1;
-            projectID = 1;
-        } else {
-            taskID = taskDao.getLastID() + 1;
-        }
-
-        i.putExtra("TaskID", taskID);
-        i.putExtra("ProjectID", projectID);
-        startActivity(i);
-    }
-
 }

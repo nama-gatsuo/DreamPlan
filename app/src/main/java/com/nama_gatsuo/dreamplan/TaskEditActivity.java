@@ -35,9 +35,10 @@ public class TaskEditActivity extends FragmentActivity {
         setContentView(R.layout.activity_task_edit);
 
         // IntentでのIDの受け取り
+        // 初期値は1
         Intent i = getIntent();
-        taskID = i.getIntExtra("TaskID", 0);
-        projectID = i.getIntExtra("ProjectID", 0);
+        taskID = i.getIntExtra("TaskID", 1);
+        projectID = i.getIntExtra("ProjectID", 1);
 
         // Databaseの接続
         DatabaseHelper dbHelper = new DatabaseHelper(this);
