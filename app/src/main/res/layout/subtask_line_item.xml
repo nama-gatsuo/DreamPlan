@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp">
+    android:layout_height="76dp">
     <TextView
         android:id="@+id/subTask_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="subtask sample"
-        android:textSize="36sp"
-        android:layout_marginLeft="36dp"
+        android:textSize="20sp"
+        android:layout_marginLeft="44dp"
         android:layout_marginTop="4dp" />
     <TextView
         android:id="@+id/subTask_startDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="yyyy/MM/dd"
-        android:textSize="18sp"
+        android:textSize="12sp"
         android:layout_alignLeft="@id/subTask_name"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentEnd="false"
-        android:layout_marginTop="4dp"
+        android:layout_marginRight="2dp"
         android:layout_below="@id/subTask_name" />
     <com.nama_gatsuo.dreamplan.View.TriangleView
         android:id="@+id/stv"
@@ -33,10 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="yyyy/MM/dd"
-        android:textSize="18sp"
-        android:layout_alignParentBottom="false"
-        android:layout_alignTop="@id/subTask_startDate"
-        android:layout_toRightOf="@id/subTask_startDate" />
-
+        android:textSize="12sp"
+        android:layout_toRightOf="@id/stv"
+        android:layout_alignTop="@id/stv"/>
 
 </RelativeLayout>

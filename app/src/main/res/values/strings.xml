@@ -24,5 +24,6 @@
 
     <string name="spnStatus_prompt">選択する</string>
     <string name="title_activity_sample">SampleActivity</string>
+    <string name="title_activity_subtask_edit">SubtaskEditActivity</string>
 
 </resources>

@@ -1,9 +1,11 @@
 package com.nama_gatsuo.dreamplan.model;
 
+import java.io.Serializable;
+
 /**
  * Created by nagamatsuayumu on 15/02/07.
  */
-public class Task {
+public class Task implements Serializable {
     private int taskID; // taskID
     private int projectID; // projectID
     private String name; // Taskの名前

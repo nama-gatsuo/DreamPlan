@@ -23,9 +23,6 @@ import org.joda.time.format.DateTimeFormat;
 
 import java.util.List;
 
-/**
- * Created by nagamatsuayumu on 15/03/08.
- */
 public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     private List<Task> groups;
     private List<List<SubTask>> children;
@@ -89,8 +86,6 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         DateTime sdt = new DateTime().withMillis(task.getStartDate());
         start_date.setText(sdt.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 
-        TriangleView triangleView = (TriangleView) groupView.findViewById(R.id.tv);
-
         TextView end_date = (TextView) groupView.findViewById(R.id.task_endDate);
         DateTime edt = new DateTime().withMillis(task.getEndDate());
         end_date.setText(edt.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
@@ -104,11 +99,12 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
         if (childPosition == getChildrenCount(groupPosition) - 1) {
             float scale = this.context.getResources().getDisplayMetrics().density;
-            AbsListView.LayoutParams lp = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int)(80 * scale));
+            AbsListView.LayoutParams lp = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             AbsListView.LayoutParams lp2 = new AbsListView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
             LinearLayout ll = new LinearLayout(context);
             ll.setLayoutParams(lp);
+            ll.setPadding((int)(scale * 40), 0, 0, 0);
 
             Button button = new Button(context);
             button.setText("追加");
@@ -118,24 +114,25 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
                 @Override
                 public void onClick(View v) {
                     // SubTask作成
-                    Intent i = new Intent(v.getContext(), TaskEditActivity.class);
+                    Intent i = new Intent(v.getContext(), SubtaskEditActivity.class);
                     DatabaseHelper dbHelper = new DatabaseHelper(v.getContext());
 
                     SQLiteDatabase db = dbHelper.getWritableDatabase();
                     SubTaskDao subTaskDao = new SubTaskDao(db);
 
-                    int subTaskID;
+                    SubTask subTask = new SubTask();
 
-                    // SubTaskがなければ最大のTaskIDに1を足す
+                    // SubTaskがあれば最大のTaskIDに1を足す
                     if (!subTaskDao.exists()) {
-                        subTaskID = 1;
+                        subTask.setSubTaskID(1);;
                     } else {
-                        subTaskID = subTaskDao.getLastID() + 1;
+                        subTask.setSubTaskID(subTaskDao.getLastID() + 1);
                     }
 
-                    i.putExtra("ProjectID", getChild(groupPosition, childPosition).getProjectID());
-                    i.putExtra("TaskID", getChild(groupPosition, childPosition).getTaskID());
-                    i.putExtra("SubTaskID", subTaskID);
+                    subTask.setTaskID(getGroup(groupPosition).getTaskID());
+                    subTask.setProjectID(getGroup(groupPosition).getProjectID());
+
+                    i.putExtra("SubTask", subTask);
 
                     v.getContext().startActivity(i);
                 }
@@ -154,10 +151,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             DateTime sdt = new DateTime().withMillis(subTask.getStartDate());
             start_date.setText(sdt.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 
-            TriangleView triangleView = (TriangleView) childView.findViewById(R.id.stv);
-
             TextView end_date = (TextView) childView.findViewById(R.id.subTask_endDate);
-            DateTime edt = new DateTime().withMillis(subTask.getStartDate());
+            DateTime edt = new DateTime().withMillis(subTask.getEndDate());
             end_date.setText(edt.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 
             // Statusの表示をおこなう

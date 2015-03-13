@@ -24,6 +24,10 @@
             android:name=".SampleActivity"
             android:label="@string/title_activity_sample" >
         </activity>
+        <activity
+            android:name=".SubtaskEditActivity"
+            android:label="@string/title_activity_subtask_edit" >
+        </activity>
     </application>
 
 </manifest>

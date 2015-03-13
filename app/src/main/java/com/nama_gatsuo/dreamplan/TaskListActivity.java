@@ -49,16 +49,19 @@ public class TaskListActivity extends Activity {
                 db = dbHelper.getWritableDatabase();
                 TaskDao taskDao = new TaskDao(db);
 
-                // Taskがなければ最大のTaskIDに1を足す
+                Task task = new Task();
+
                 int taskID;
+                // Taskがなければ最大のTaskIDに1を足す
                 if (!taskDao.exists()) {
                     taskID = 1;
                 } else {
                     taskID = taskDao.getLastID() + 1;
                 }
+                task.setTaskID(taskID);
+                task.setProjectID(projectID);
 
-                i.putExtra("ProjectID", projectID);
-                i.putExtra("TaskID", taskID);
+                i.putExtra("Task", task);
 
                 v.getContext().startActivity(i);
             }
@@ -84,16 +87,13 @@ public class TaskListActivity extends Activity {
         // モデルをリストに格納
         for (Task task : groups) {
             List<SubTask> slist = subTaskDao.findByTaskID(task.getTaskID());
-            // task配下にsubTaskがなければ余分にSubTaskを作成してリストに渡す
-            if (slist.size() == 0) {
-                SubTask subTask = new SubTask();
-                subTask.setTaskID(task.getTaskID());
-                subTask.setProjectID(this.projectID);
-                slist.add(subTask);
-                children.add(0, slist);
-            } else {
-                children.add(slist);
-            }
+            // ボタン列追加のため余分にSubTaskを作成してリストに渡す
+            SubTask subTask = new SubTask();
+            subTask.setTaskID(task.getTaskID());
+            subTask.setProjectID(this.projectID);
+
+            slist.add(subTask);
+            children.add(slist);
         }
 
         // アダプターを準備&設定

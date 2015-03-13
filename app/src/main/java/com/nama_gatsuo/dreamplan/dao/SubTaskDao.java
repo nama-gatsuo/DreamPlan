@@ -9,9 +9,6 @@ import com.nama_gatsuo.dreamplan.model.SubTask;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by nagamatsuayumu on 15/02/07.
- */
 public class SubTaskDao {
     public static final String TABLE_NAME = "subTask";
 
@@ -57,31 +54,7 @@ public class SubTaskDao {
         // 一行ずつfetch
         while (c.moveToNext()) {
             SubTask subTask = new SubTask();
-            subTask.setSubTaskID(c.getColumnIndex(COLUMN_subTaskID));
-            subTask.setTaskID(c.getInt(c.getColumnIndex(COLUMN_taskID)));
-            subTask.setProjectID(c.getInt(c.getColumnIndex(COLUMN_projectID)));
-            subTask.setName(c.getString(c.getColumnIndex(COLUMN_subTaskName)));
-            subTask.setDescription(c.getString(c.getColumnIndexOrThrow(COLUMN_subTaskDescription)));
-            subTask.setStatus(c.getInt(c.getColumnIndex(COLUMN_subTaskStatus)));
-            subTask.setStartDate(c.getLong(c.getColumnIndex(COLUMN_subTaskStartDate)));
-            subTask.setEndDate(c.getLong(c.getColumnIndex(COLUMN_subTaskEndDate)));
-            list.add(subTask);
-        }
-        // Cursorのclose
-        c.close();
-        return list;
-    }
-
-    // 特定のProjectID配下のSubTaskを取得するメソッド
-    public List<SubTask> findByProjectID(int projectID) {
-        List<SubTask> list = new ArrayList<SubTask>();
-        // Where句でProjectIDを指定してquery生成
-        Cursor c = db.query(TABLE_NAME, COLUMNS, COLUMN_projectID + " = ?",
-                new String[] { String.valueOf(projectID) }, null, null, COLUMN_subTaskID);
-        // 一行ずつfetch
-        while (c.moveToNext()) {
-            SubTask subTask = new SubTask();
-            subTask.setSubTaskID(c.getColumnIndex(COLUMN_subTaskID));
+            subTask.setSubTaskID(c.getInt(c.getColumnIndex(COLUMN_subTaskID)));
             subTask.setTaskID(c.getInt(c.getColumnIndex(COLUMN_taskID)));
             subTask.setProjectID(c.getInt(c.getColumnIndex(COLUMN_projectID)));
             subTask.setName(c.getString(c.getColumnIndex(COLUMN_subTaskName)));
@@ -97,17 +70,16 @@ public class SubTaskDao {
     }
 
     // 特定のTaskID配下のSubTaskを取り出すメソッド
-    public List<SubTask> findByTaskID(int TaskID) {
+    public List<SubTask> findByTaskID(int taskID) {
         List<SubTask> list = new ArrayList<SubTask>();
         // WHERE句でCOLUMN_taskIDを指定してqueryを生成
         Cursor c = db.query(TABLE_NAME, COLUMNS, COLUMN_taskID + " = ?",
-                new String[] { String.valueOf(TaskID) }, null, null, COLUMN_subTaskID);
-        SubTask subTask = null;
+                new String[] { String.valueOf(taskID) }, null, null, COLUMN_subTaskID);
 
         // 一行ずつfetch
         while (c.moveToNext()) {
-            subTask = new SubTask();
-            subTask.setSubTaskID(c.getColumnIndex(COLUMN_subTaskID));
+            SubTask subTask = new SubTask();
+            subTask.setSubTaskID(c.getInt(c.getColumnIndex(COLUMN_subTaskID)));
             subTask.setTaskID(c.getInt(c.getColumnIndex(COLUMN_taskID)));
             subTask.setProjectID(c.getInt(c.getColumnIndex(COLUMN_projectID)));
             subTask.setName(c.getString(c.getColumnIndex(COLUMN_subTaskName)));
@@ -125,21 +97,21 @@ public class SubTaskDao {
     // SubTaskIDを指定して取り出すメソッド
     public SubTask findBySubTaskID(int subTaskID) {
         // WHERE句でCOLUMN_taskIDを指定してqueryを生成
-        Cursor c = db.query(TABLE_NAME, COLUMNS, COLUMN_taskID + " = ?",
-                new String[]{String.valueOf(subTaskID)}, null, null, COLUMN_taskID);
+        Cursor c = db.query(TABLE_NAME, COLUMNS, COLUMN_subTaskID + " = ?",
+                new String[] { String.valueOf(subTaskID) }, null, null, COLUMN_subTaskID);
         SubTask subTask = null;
 
         // 一行だけfetch
         if (c.moveToFirst()) {
             subTask = new SubTask();
-            subTask.setSubTaskID(c.getColumnIndex(COLUMN_subTaskID));
+            subTask.setSubTaskID(c.getInt(c.getColumnIndex(COLUMN_subTaskID)));
             subTask.setTaskID(c.getInt(c.getColumnIndex(COLUMN_taskID)));
             subTask.setProjectID(c.getInt(c.getColumnIndex(COLUMN_projectID)));
             subTask.setName(c.getString(c.getColumnIndex(COLUMN_subTaskName)));
             subTask.setDescription(c.getString(c.getColumnIndexOrThrow(COLUMN_subTaskDescription)));
             subTask.setStatus(c.getInt(c.getColumnIndex(COLUMN_subTaskStatus)));
-            subTask.setStartDate(c.getInt(c.getColumnIndex(COLUMN_subTaskStartDate)));
-            subTask.setEndDate(c.getInt(c.getColumnIndex(COLUMN_subTaskEndDate)));
+            subTask.setStartDate(c.getLong(c.getColumnIndex(COLUMN_subTaskStartDate)));
+            subTask.setEndDate(c.getLong(c.getColumnIndex(COLUMN_subTaskEndDate)));
         }
         // Cursorのclose
         c.close();
@@ -153,6 +125,8 @@ public class SubTaskDao {
         }
         // 値設定
         ContentValues values = new ContentValues();
+        values.put(COLUMN_taskID, subTask.getTaskID());
+        values.put(COLUMN_projectID, subTask.getProjectID());
         values.put(COLUMN_subTaskName, subTask.getName());
         values.put(COLUMN_subTaskDescription, subTask.getDescription());
         values.put(COLUMN_subTaskStatus, subTask.getStatus());
@@ -198,8 +172,8 @@ public class SubTaskDao {
     // ID値の最大を返すメソッド
     public int getLastID() {
         ArrayList<SubTask> stlist = new ArrayList<SubTask>();
-        stlist = (ArrayList<SubTask>)findAll();
-        int lastTaskID = (stlist.get(stlist.size())).getTaskID();
+        stlist.addAll(findAll());
+        int lastTaskID = (stlist.get(stlist.size() - 1)).getSubTaskID();
         return lastTaskID;
     }
 

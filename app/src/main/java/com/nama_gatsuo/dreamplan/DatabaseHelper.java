@@ -7,9 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.nama_gatsuo.dreamplan.dao.SubTaskDao;
 import com.nama_gatsuo.dreamplan.dao.TaskDao;
 
-/**
- * Created by nagamatsuayumu on 15/02/07.
- */
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "data";
     private static final int DATABASE_VERSION = 1;
