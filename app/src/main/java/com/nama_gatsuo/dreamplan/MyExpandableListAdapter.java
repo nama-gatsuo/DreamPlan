@@ -10,8 +10,10 @@ import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nama_gatsuo.dreamplan.View.StatusView;
 import com.nama_gatsuo.dreamplan.View.TriangleView;
 import com.nama_gatsuo.dreamplan.dao.SubTaskDao;
 import com.nama_gatsuo.dreamplan.dao.TaskDao;
@@ -77,10 +79,20 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
         View groupView = LayoutInflater.from(context).inflate(R.layout.task_line_item, null);
-        Task task = groups.get(groupPosition);
+        final Task task = groups.get(groupPosition);
 
         TextView task_name = (TextView) groupView.findViewById(R.id.task_name);
         task_name.setText(task.getName());
+        task_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Task編集
+                Intent i = new Intent(v.getContext(), TaskEditActivity.class);
+
+                i.putExtra("Task", task);
+                v.getContext().startActivity(i);
+            }
+        });
 
         TextView start_date = (TextView) groupView.findViewById(R.id.task_startDate);
         DateTime sdt = new DateTime().withMillis(task.getStartDate());
@@ -90,13 +102,17 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         DateTime edt = new DateTime().withMillis(task.getEndDate());
         end_date.setText(edt.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 
-        // Statusの表示をおこなう
+        // Statusの表示
+        RelativeLayout rl = (RelativeLayout) groupView.findViewById(R.id.task_status);
+        StatusView sv = new StatusView(context, task.getStatus());
+        rl.addView(sv);
 
         return groupView;
     }
 
     @Override
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
+        // Group内の最後の子要素に対してはボタンの行とする
         if (childPosition == getChildrenCount(groupPosition) - 1) {
             float scale = this.context.getResources().getDisplayMetrics().density;
             AbsListView.LayoutParams lp = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -115,8 +131,9 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
                 public void onClick(View v) {
                     // SubTask作成
                     Intent i = new Intent(v.getContext(), SubtaskEditActivity.class);
-                    DatabaseHelper dbHelper = new DatabaseHelper(v.getContext());
 
+                    // Database接続
+                    DatabaseHelper dbHelper = new DatabaseHelper(v.getContext());
                     SQLiteDatabase db = dbHelper.getWritableDatabase();
                     SubTaskDao subTaskDao = new SubTaskDao(db);
 
@@ -155,7 +172,10 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             DateTime edt = new DateTime().withMillis(subTask.getEndDate());
             end_date.setText(edt.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 
-            // Statusの表示をおこなう
+            // Statusの表示
+            RelativeLayout rl = (RelativeLayout) childView.findViewById(R.id.subTask_status);
+            StatusView sv = new StatusView(context, subTask.getStatus());
+            rl.addView(sv);
 
             return childView;
         }

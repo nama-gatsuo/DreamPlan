@@ -6,12 +6,16 @@
     <color name="accent_dark">#C2185B</color>
     <color name="background">#FFFFFF</color>
 
-    <color name="custom_text_color_normal">#ffffffff</color>
-    <color name="custom_text_color_disabled">#ffb2b2b2</color>
-    <color name="custom_divider_color">#ffffffff</color>
-    <color name="custom_button_background">#00000000</color>
-    <color name="custom_button_background_pressed">#ffcc6600</color>
-    <color name="custom_key_background">#00000000</color>
-    <color name="custom_key_background_pressed">#ffcc6600</color>
-    <color name="custom_keyboard_indicator_color">#ffcc6600</color>
+    <color name="status_0">#FFFFFF</color>
+    <color name="status_1">#E8F5E9</color>
+    <color name="status_2">#C8E6C9</color>
+    <color name="status_3">#A5D6A7</color>
+    <color name="status_4">#81C784</color>
+    <color name="status_5">#66BB6A</color>
+    <color name="status_6">#4CAF50</color>
+    <color name="status_7">#43A047</color>
+    <color name="status_8">#388E3C</color>
+    <color name="status_9">#2E7D32</color>
+    <color name="status_10">#FFFFFF</color>
+    <color name="status_char_black">#000000</color>
 </resources>

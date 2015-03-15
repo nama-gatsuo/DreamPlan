@@ -34,5 +34,12 @@
         android:textSize="12sp"
         android:layout_toRightOf="@id/stv"
         android:layout_alignTop="@id/stv"/>
+    <RelativeLayout
+        android:id="@+id/subTask_status"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true" />
 
 </RelativeLayout>

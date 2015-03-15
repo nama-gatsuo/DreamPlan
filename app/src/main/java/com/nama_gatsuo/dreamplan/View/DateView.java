@@ -14,7 +14,7 @@ import org.joda.time.format.DateTimeFormat;
  * Created by nagamatsuayumu on 15/02/28.
  */
 public class DateView extends TextView implements CalendarDatePickerDialog.OnDateSetListener {
-
+    DateTime dt;
 
     public DateView(Context context) {
         super(context);
@@ -34,7 +34,17 @@ public class DateView extends TextView implements CalendarDatePickerDialog.OnDat
 
     @Override
     public void onDateSet(CalendarDatePickerDialog calendarDatePickerDialog, int year, int month, int day) {
-        DateTime dt = new DateTime().withDate(year, month + 1, day);
+        dt = new DateTime().withDate(year, month + 1, day);
+        LocalDate ld = dt.toLocalDate();
+        this.setText(ld.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
+    }
+
+    public long getDate() {
+        return dt.getMillis();
+    }
+
+    public void setDate(long date) {
+        dt = new DateTime().withMillis(date);
         LocalDate ld = dt.toLocalDate();
         this.setText(ld.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
     }

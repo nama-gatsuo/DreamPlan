@@ -20,7 +20,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
-            android:id="@+id/taskName"
+            android:id="@+id/task_edit_name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content" />
 
         <com.nama_gatsuo.dreamplan.View.DateView
-            android:id="@+id/startDate"
+            android:id="@+id/task_edit_startDate"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content" />
 
         <com.nama_gatsuo.dreamplan.View.DateView
-            android:id="@+id/endDate"
+            android:id="@+id/task_edit_endDate"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content" />
 
         <Spinner
-            android:id="@+id/status"
+            android:id="@+id/task_edit_status"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:entries="@array/spnStatus_items"
@@ -63,7 +63,7 @@
         android:text="説明" />
 
     <EditText
-        android:id="@+id/description"
+        android:id="@+id/task_edit_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

@@ -36,15 +36,14 @@ public class TriangleView extends View {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
         scale = getContext().getResources().getDisplayMetrics().density;
         centerX = centerX * scale;
         centerY = centerY * scale;
 
         Paint p = new Paint();
+        p.setAntiAlias(true);
         p.setColor(getResources().getColor(R.color.accent));
         p.setStyle(Paint.Style.FILL_AND_STROKE);
 

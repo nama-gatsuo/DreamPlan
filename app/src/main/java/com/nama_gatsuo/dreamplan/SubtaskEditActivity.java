@@ -32,11 +32,11 @@ public class SubtaskEditActivity extends FragmentActivity {
         // IntentでのSubTaskの受け取り
         subTask = (SubTask)getIntent().getSerializableExtra("SubTask");
 
-        EditText taskName = (EditText)findViewById(R.id.taskName);
-        final DateView startDate = (DateView)findViewById(R.id.startDate);
-        final DateView endDate = (DateView)findViewById(R.id.endDate);
-        Spinner status = (Spinner)findViewById(R.id.status);
-        EditText description = (EditText)findViewById(R.id.description);
+        EditText taskName = (EditText)findViewById(R.id.subTask_edit_name);
+        final DateView startDate = (DateView)findViewById(R.id.subTask_edit_startDate);
+        final DateView endDate = (DateView)findViewById(R.id.subTask_edit_endDate);
+        Spinner status = (Spinner)findViewById(R.id.subTask_edit_status);
+        EditText description = (EditText)findViewById(R.id.subTask_edit_description);
 
         // Database接続
         DatabaseHelper dbHelper = new DatabaseHelper(this);
@@ -46,13 +46,8 @@ public class SubtaskEditActivity extends FragmentActivity {
         // SubTaskが既に存在していればViewに値をセット
         if(subTaskDao.exists(subTask.getSubTaskID())) {
             taskName.setText(subTask.getName());
-
-            DateTime sdt = new DateTime().withMillis(subTask.getStartDate());
-            startDate.setText(sdt.toString(DateTimeFormat.longDate()));
-
-            DateTime edt = new DateTime().withMillis(subTask.getEndDate());
-            endDate.setText(edt.toString(DateTimeFormat.longDate()));
-
+            startDate.setDate(subTask.getStartDate());
+            endDate.setDate(subTask.getEndDate());
             status.setSelection(subTask.getStatus());
             description.setText(subTask.getDescription());
         }
@@ -87,16 +82,11 @@ public class SubtaskEditActivity extends FragmentActivity {
     // Save Button
     public void onClickSave(View v) {
         try {
-            subTask.setName(((EditText) findViewById(R.id.taskName)).getText().toString());
-            subTask.setDescription(((EditText) findViewById(R.id.description)).getText().toString());
-            subTask.setStatus(((Spinner) findViewById(R.id.status)).getSelectedItemPosition());
-
-            // 日付文字列をDateTime型を経てlong値に変換
-            String sd = ((TextView)findViewById(R.id.startDate)).getText().toString();
-            subTask.setStartDate(DateTimeFormat.forPattern("yyyy/MM/dd").parseDateTime(sd).getMillis());
-
-            String ed = ((TextView)findViewById(R.id.endDate)).getText().toString();
-            subTask.setEndDate(DateTimeFormat.forPattern("yyyy/MM/dd").parseDateTime(ed).getMillis());
+            subTask.setName(((EditText) findViewById(R.id.subTask_edit_name)).getText().toString());
+            subTask.setDescription(((EditText) findViewById(R.id.subTask_edit_description)).getText().toString());
+            subTask.setStatus(((Spinner) findViewById(R.id.subTask_edit_status)).getSelectedItemPosition());
+            subTask.setStartDate(((DateView)findViewById(R.id.subTask_edit_startDate)).getDate());
+            subTask.setEndDate(((DateView)findViewById(R.id.subTask_edit_endDate)).getDate());
 
             if (subTaskDao.save(subTask) < 0) {
                 throw new Exception("could not save Task");
