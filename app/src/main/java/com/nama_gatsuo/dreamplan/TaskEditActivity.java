@@ -109,15 +109,23 @@ public class TaskEditActivity extends FragmentActivity {
 
     // Delete Button
     public void onClickDelete(View v) {
+        // 本当に削除するか確認
         try {
             if (taskDao.deleteByTaskID(task.getTaskID()) < 0) {
                 throw new Exception("could not delete Task");
             }
+            // 配下のSubTaskも削除
             Toast.makeText(this, "削除しました", Toast.LENGTH_LONG).show();
             finish();
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "削除できませんでした", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        db.close();
     }
 }

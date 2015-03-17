@@ -1,5 +1,6 @@
 package com.nama_gatsuo.dreamplan;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -103,9 +104,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         end_date.setText(edt.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 
         // Statusの表示
-        RelativeLayout rl = (RelativeLayout) groupView.findViewById(R.id.task_status);
-        StatusView sv = new StatusView(context, task.getStatus());
-        rl.addView(sv);
+        StatusView sv = ((StatusView) groupView.findViewById(R.id.task_status));
+        sv.setStatus(task.getStatus());
 
         return groupView;
     }
@@ -173,13 +173,11 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             end_date.setText(edt.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 
             // Statusの表示
-            RelativeLayout rl = (RelativeLayout) childView.findViewById(R.id.subTask_status);
-            StatusView sv = new StatusView(context, subTask.getStatus());
-            rl.addView(sv);
+            StatusView sv = (StatusView) childView.findViewById(R.id.subTask_status);
+            sv.setStatus(subTask.getStatus());
 
             return childView;
         }
-
     }
 
     @Override

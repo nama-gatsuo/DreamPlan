@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskListActivity extends Activity {
-    SQLiteDatabase db;
-    TextView emptyTextView;
-    AddFloatingActionButton afab;
+    private SQLiteDatabase db;
+    private TextView emptyTextView;
+    private AddFloatingActionButton afab;
     private int projectID;
     private List<Task> groups = null;
     private List<List<SubTask>> children = null;
@@ -37,7 +37,6 @@ public class TaskListActivity extends Activity {
         projectID = i.getIntExtra("projectID", 1);
 
         // FABの設定
-        afab = new AddFloatingActionButton(this);
         afab = (AddFloatingActionButton) findViewById(R.id.fab);
         afab.setColorNormalResId(R.color.accent);
         afab.setColorPressedResId(R.color.accent_dark);
@@ -103,5 +102,11 @@ public class TaskListActivity extends Activity {
         // データが入っていない時の表示
         emptyTextView = (TextView) findViewById(R.id.emptyTextView);
         elv.setEmptyView(emptyTextView);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        db.close();
     }
 }

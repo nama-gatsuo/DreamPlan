@@ -35,7 +35,7 @@
         android:textSize="12sp"
         android:layout_toRightOf="@id/tv"
         android:layout_alignTop="@id/tv" />
-    <RelativeLayout
+    <com.nama_gatsuo.dreamplan.View.StatusView
         android:id="@+id/task_status"
         android:layout_width="60dp"
         android:layout_height="60dp"

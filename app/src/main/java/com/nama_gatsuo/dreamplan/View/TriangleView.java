@@ -12,52 +12,49 @@ import com.nama_gatsuo.dreamplan.R;
 
 
 public class TriangleView extends View {
-    private float centerX = 8;
-    private float centerY = 9;
+    private float centerX = 8.0f;
+    private float centerY = 9.0f;
     private int dis = 8; // 原点から各頂点への距離
     private int[] degs = { 0, 120, 240 };
     private float scale;
+    private final Paint mFillPaint;
+    private final Path mPath = new Path();
 
 
     // Constructor
     public TriangleView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public TriangleView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public TriangleView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-    }
+        scale = getContext().getResources().getDisplayMetrics().density;
 
-    public TriangleView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        centerX = centerX * scale;
+        centerY = centerY * scale;
+
+        mFillPaint = new Paint();
+        mFillPaint.setAntiAlias(true);
+        mFillPaint.setColor(getResources().getColor(R.color.accent));
+        mFillPaint.setStyle(Paint.Style.FILL_AND_STROKE);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        scale = getContext().getResources().getDisplayMetrics().density;
-        centerX = centerX * scale;
-        centerY = centerY * scale;
-
-        Paint p = new Paint();
-        p.setAntiAlias(true);
-        p.setColor(getResources().getColor(R.color.accent));
-        p.setStyle(Paint.Style.FILL_AND_STROKE);
-
-        Path path = new Path();
         for (int i : degs) {
             double x = Math.cos(i * Math.PI / 180) * dis * scale;
             double y = Math.sin(i * Math.PI / 180) * dis * scale;
             if (i == 0) {
-                path.moveTo(centerX + (float) x, centerY + (float) y);
+                mPath.moveTo(centerX + (float) x, centerY + (float) y);
             } else {
-                path.lineTo(centerX + (float) x, centerY + (float) y);
+                mPath.lineTo(centerX + (float) x, centerY + (float) y);
             }
         }
-        path.close();
-        canvas.drawPath(path, p);
+        mPath.close();
+        canvas.drawPath(mPath, mFillPaint);
     }
 }

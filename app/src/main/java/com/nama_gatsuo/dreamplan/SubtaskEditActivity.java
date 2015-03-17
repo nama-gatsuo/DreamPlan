@@ -123,4 +123,10 @@ public class SubtaskEditActivity extends FragmentActivity {
             Toast.makeText(this, "削除できませんでした", Toast.LENGTH_LONG).show();
         }
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        db.close();
+    }
 }
