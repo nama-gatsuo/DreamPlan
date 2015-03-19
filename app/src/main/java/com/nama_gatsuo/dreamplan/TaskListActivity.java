@@ -18,6 +18,8 @@ import com.getbase.floatingactionbutton.AddFloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.chrisjenx.paralloid.Parallaxor;
+
 public class TaskListActivity extends Activity {
     private SQLiteDatabase db;
     private TextView emptyTextView;
@@ -77,7 +79,11 @@ public class TaskListActivity extends Activity {
         TaskDao taskDao = new TaskDao(db);
         SubTaskDao subTaskDao = new SubTaskDao(db);
 
+        // ExpandableListViewの用意
         ExpandableListView elv = (ExpandableListView) findViewById(R.id.elv);
+        elv.setVerticalScrollBarEnabled(false);
+        elv.setDivider(null);
+        elv.setSelector(R.color.transparent);
 
         // アダプターに渡すためのListを準備
         groups = taskDao.findAll();

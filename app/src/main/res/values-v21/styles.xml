@@ -11,5 +11,6 @@
         <item name="android:colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/background</item>
         <item name="android:navigationBarColor">@color/primary_dark</item>
+
     </style>
 </resources>

@@ -1,6 +1,5 @@
 package com.nama_gatsuo.dreamplan;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,13 +10,10 @@ import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nama_gatsuo.dreamplan.View.StatusView;
-import com.nama_gatsuo.dreamplan.View.TriangleView;
 import com.nama_gatsuo.dreamplan.dao.SubTaskDao;
-import com.nama_gatsuo.dreamplan.dao.TaskDao;
 import com.nama_gatsuo.dreamplan.model.SubTask;
 import com.nama_gatsuo.dreamplan.model.Task;
 
@@ -114,18 +110,9 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
         // Group内の最後の子要素に対してはボタンの行とする
         if (childPosition == getChildrenCount(groupPosition) - 1) {
-            float scale = this.context.getResources().getDisplayMetrics().density;
-            AbsListView.LayoutParams lp = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            AbsListView.LayoutParams lp2 = new AbsListView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            View lastChild = LayoutInflater.from(context).inflate(R.layout.subtask_line_item_add, null);
 
-            LinearLayout ll = new LinearLayout(context);
-            ll.setLayoutParams(lp);
-            ll.setPadding((int)(scale * 40), 0, 0, 0);
-
-            Button button = new Button(context);
-            button.setText("追加");
-            button.setId(R.id.add_subTask);
-            button.setLayoutParams(lp2);
+            Button button = (Button) lastChild.findViewById(R.id.button);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -155,8 +142,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
                 }
             });
 
-            ll.addView(button);
-            return ll;
+            return lastChild;
         } else {
             View childView = LayoutInflater.from(context).inflate(R.layout.subtask_line_item, null);
             SubTask subTask = children.get(groupPosition).get(childPosition);

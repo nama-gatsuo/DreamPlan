@@ -17,6 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dexOptions {
+        preDexLibraries false
+    }
 }
 
 dependencies {
@@ -24,4 +27,5 @@ dependencies {
     compile 'com.getbase:floatingactionbutton:1.7.0'
     compile 'com.doomonafireball.betterpickers:library:1.5.4'
     compile 'net.danlew:android.joda:2.7.1'
+    compile project(':libraries:paralloid')
 }

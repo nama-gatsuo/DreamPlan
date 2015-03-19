@@ -1,46 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:descendantFocusability="blocksDescendants">
-    <TextView
-        android:id="@+id/task_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="task sample"
-        android:textSize="24sp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="4dp" />
-    <TextView
-        android:id="@+id/task_startDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="yyyy/MM/dd"
-        android:textSize="12sp"
-        android:layout_alignLeft="@id/task_name"
-        android:layout_marginRight="2dp"
-        android:layout_below="@id/task_name" />
-    <com.nama_gatsuo.dreamplan.View.TriangleView
-        android:id="@+id/tv"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_marginRight="2dp"
-        android:layout_toRightOf="@id/task_startDate"
-        android:layout_alignTop="@id/task_startDate" />
-    <TextView
-        android:id="@+id/task_endDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="yyyy/MM/dd"
-        android:textSize="12sp"
-        android:layout_toRightOf="@id/tv"
-        android:layout_alignTop="@id/tv" />
-    <com.nama_gatsuo.dreamplan.View.StatusView
-        android:id="@+id/task_status"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginRight="10dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true" />
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="16dp"
+    android:elevation="8dp">
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/list_item_bg"
+        android:descendantFocusability="blocksDescendants">
+
+        <TextView
+            android:id="@+id/task_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="task sample"
+            android:textSize="20sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/task_startDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="yyyy/MM/dd"
+            android:textSize="12sp"
+            android:layout_alignLeft="@id/task_name"
+            android:layout_marginRight="2dp"
+            android:layout_below="@id/task_name" />
+
+        <com.nama_gatsuo.dreamplan.View.TriangleView
+            android:id="@+id/tv"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginRight="2dp"
+            android:layout_toRightOf="@id/task_startDate"
+            android:layout_alignTop="@id/task_startDate" />
+
+        <TextView
+            android:id="@+id/task_endDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="yyyy/MM/dd"
+            android:textSize="12sp"
+            android:layout_toRightOf="@id/tv"
+            android:layout_alignTop="@id/tv" />
+
+        <com.nama_gatsuo.dreamplan.View.StatusView
+            android:id="@+id/task_status"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true" />
+
+    </RelativeLayout>
+    <!-- 影部分 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#cccccc" />
+</LinearLayout>
