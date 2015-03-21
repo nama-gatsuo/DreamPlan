@@ -62,6 +62,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#cccccc" />
+        android:background="@color/list_item_shadow" />
 
 </LinearLayout>

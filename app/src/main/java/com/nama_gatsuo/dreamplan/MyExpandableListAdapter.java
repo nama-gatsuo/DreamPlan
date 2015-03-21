@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
@@ -161,6 +163,10 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             // Statusの表示
             StatusView sv = (StatusView) childView.findViewById(R.id.subTask_status);
             sv.setStatus(subTask.getStatus());
+
+            Animation anim = AnimationUtils.loadAnimation(context, R.anim.item_motion);
+            // ListViewのアイテム要素にロードしたアニメーションを実行する
+            childView.startAnimation(anim);
 
             return childView;
         }

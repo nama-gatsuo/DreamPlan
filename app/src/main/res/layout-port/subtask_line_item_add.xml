@@ -6,18 +6,20 @@
     android:orientation="vertical"
     android:paddingTop="8dp"
     android:paddingLeft="32dp">
+
     <Button
         android:id="@+id/button"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="@color/accent_light"
+        android:background="@color/list_button_bg"
         android:text="add"
         android:textSize="18sp"
         android:textColor="#ffffff"
         android:elevation="8dp"/>
+
     <!-- 影部分 -->
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#cccccc" />
+        android:background="@color/list_item_shadow" />
 </LinearLayout>

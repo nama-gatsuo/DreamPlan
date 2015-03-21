@@ -9,9 +9,7 @@ import com.nama_gatsuo.dreamplan.model.Task;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by nagamatsuayumu on 15/02/07.
- */
+
 public class TaskDao {
     public static final String TABLE_NAME = "task";
 

@@ -21,6 +21,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
 public class TaskEditActivity extends FragmentActivity {
+
     private TaskDao taskDao;
     private Task task;
     private SQLiteDatabase db;
@@ -28,6 +29,7 @@ public class TaskEditActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_edit);
 
