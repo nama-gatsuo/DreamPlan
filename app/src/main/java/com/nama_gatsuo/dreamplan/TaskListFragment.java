@@ -66,6 +66,9 @@ public class TaskListFragment extends Fragment {
         adapter = new MyExpandableListAdapter(parent, groups, children);
         elv.setAdapter(adapter);
 
+        // Indicationのアイコンを変更
+        // elv.setGroupIndicator();
+
         // リストを開く
         int groupCount = adapter.getGroupCount();
         for (int i = 0; i < groupCount; i++) {

@@ -52,6 +52,7 @@ public class TaskGanttFragment extends Fragment {
         ListView group_list = (ListView) view.findViewById(R.id.group_list);
         GroupListAdapter gla = new GroupListAdapter(parent, groups, children, R.layout.division_group);
         group_list.setAdapter(gla);
+        group_list.setDivider(null);
 
         // グラフ初期化
 

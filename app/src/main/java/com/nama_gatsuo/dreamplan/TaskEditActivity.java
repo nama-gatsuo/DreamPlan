@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
 import com.nama_gatsuo.dreamplan.View.DateView;
+import com.nama_gatsuo.dreamplan.dao.SubTaskDao;
 import com.nama_gatsuo.dreamplan.dao.TaskDao;
 import com.nama_gatsuo.dreamplan.model.Task;
 
@@ -23,6 +24,7 @@ import org.joda.time.format.DateTimeFormat;
 public class TaskEditActivity extends FragmentActivity {
 
     private TaskDao taskDao;
+    private SubTaskDao subTaskDao;
     private Task task;
     private SQLiteDatabase db;
     private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
@@ -46,6 +48,7 @@ public class TaskEditActivity extends FragmentActivity {
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         db = dbHelper.getWritableDatabase();
         taskDao = new TaskDao(db);
+        subTaskDao = new SubTaskDao(db);
 
         // Taskが既に存在していればViewに値をセット
         if(taskDao.exists(task.getTaskID())) {
@@ -113,7 +116,7 @@ public class TaskEditActivity extends FragmentActivity {
     public void onClickDelete(View v) {
         // 本当に削除するか確認
         try {
-            if (taskDao.deleteByTaskID(task.getTaskID()) < 0) {
+            if (taskDao.deleteByTaskID(task.getTaskID()) < 0 || subTaskDao.deleteByTaskID(task.getTaskID()) < 0) {
                 throw new Exception("could not delete Task");
             }
             // 配下のSubTaskも削除

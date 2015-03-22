@@ -6,7 +6,7 @@
 
     <com.nama_gatsuo.dreamplan.View.SubtaskIndex
         android:layout_width="30dp"
-        android:layout_height="match_parent"
+        android:layout_height="30dp"
         android:layout_gravity="center_vertical"/>
 
     <TextView

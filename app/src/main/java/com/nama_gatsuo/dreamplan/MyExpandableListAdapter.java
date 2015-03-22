@@ -8,12 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nama_gatsuo.dreamplan.View.DateView;
 import com.nama_gatsuo.dreamplan.View.StatusView;
 import com.nama_gatsuo.dreamplan.dao.SubTaskDao;
 import com.nama_gatsuo.dreamplan.model.SubTask;
@@ -22,12 +21,34 @@ import com.nama_gatsuo.dreamplan.model.Task;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     private List<Task> groups;
     private List<List<SubTask>> children;
     private Context context = null;
+
+    private class ViewHolder {
+        private HashMap<Integer, View> storedViews = new HashMap<Integer, View>();
+        Animation anim;
+
+        ViewHolder(Context context) {
+            if (anim == null) {
+                anim = AnimationUtils.loadAnimation(context, R.anim.item_motion);
+            }
+        }
+
+        public ViewHolder addView(View view) {
+            int id = view.getId();
+            storedViews.put(id, view);
+            return this;
+        }
+
+        public View getView(int id) {
+            return storedViews.get(id);
+        }
+    }
 
     // Constructor
     public MyExpandableListAdapter (Context context, List<Task> groups, List<List<SubTask>> children) {
@@ -77,10 +98,31 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
-        View groupView = LayoutInflater.from(context).inflate(R.layout.task_line_item, null);
+        ViewHolder holder;
+        if (convertView == null || convertView.getTag() == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.task_line_item, null);
+
+            TextView task_name = (TextView) convertView.findViewById(R.id.task_name);
+            TextView start_date = (TextView) convertView.findViewById(R.id.task_startDate);
+            TextView end_date = (TextView) convertView.findViewById(R.id.task_endDate);
+            StatusView task_status = (StatusView) convertView.findViewById(R.id.task_status);
+
+            holder = new ViewHolder(context);
+            holder.addView(task_name);
+            holder.addView(start_date);
+            holder.addView(end_date);
+            holder.addView(task_status);
+
+            convertView.setTag(holder);
+        } else {
+            // ViewHolderからID参照
+            holder = (ViewHolder) convertView.getTag();
+        }
+
         final Task task = groups.get(groupPosition);
 
-        TextView task_name = (TextView) groupView.findViewById(R.id.task_name);
+        // 名前のセット
+        TextView task_name = (TextView)holder.getView(R.id.task_name);
         task_name.setText(task.getName());
         task_name.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,25 +135,31 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             }
         });
 
-        TextView start_date = (TextView) groupView.findViewById(R.id.task_startDate);
+        // 開始日のセット
+        TextView start_date = (TextView)holder.getView(R.id.task_startDate);
         DateTime sdt = new DateTime().withMillis(task.getStartDate());
         start_date.setText(sdt.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 
-        TextView end_date = (TextView) groupView.findViewById(R.id.task_endDate);
+        // 終了日のセット
+        TextView end_date = (TextView)holder.getView(R.id.task_endDate);
         DateTime edt = new DateTime().withMillis(task.getEndDate());
         end_date.setText(edt.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 
-        // Statusの表示
-        StatusView sv = ((StatusView) groupView.findViewById(R.id.task_status));
+        // ステータスのセット
+        StatusView sv = (StatusView)holder.getView(R.id.task_status);
         sv.setStatus(task.getStatus());
 
-        return groupView;
+        // アニメーションの開始
+        // convertView.startAnimation(holder.anim);
+
+        return convertView;
     }
 
     @Override
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
+
         // Group内の最後の子要素に対してはボタンの行とする
-        if (childPosition == getChildrenCount(groupPosition) - 1) {
+        if (isLastChild) {
             View lastChild = LayoutInflater.from(context).inflate(R.layout.subtask_line_item_add, null);
 
             Button button = (Button) lastChild.findViewById(R.id.button);
@@ -146,29 +194,51 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
             return lastChild;
         } else {
-            View childView = LayoutInflater.from(context).inflate(R.layout.subtask_line_item, null);
+            ViewHolder holder;
+            if (convertView == null || convertView.getTag() == null) {
+                convertView = LayoutInflater.from(context).inflate(R.layout.subtask_line_item, null);
+
+                TextView subTask_name = (TextView) convertView.findViewById(R.id.subTask_name);
+                TextView start_date = (TextView) convertView.findViewById(R.id.subTask_startDate);
+                TextView end_date = (TextView) convertView.findViewById(R.id.subTask_endDate);
+                StatusView subTask_status = (StatusView) convertView.findViewById(R.id.subTask_status);
+
+                holder = new ViewHolder(context);
+                holder.addView(subTask_name);
+                holder.addView(start_date);
+                holder.addView(end_date);
+                holder.addView(subTask_status);
+
+                convertView.setTag(holder);
+            } else {
+                // ViewHolderからID参照
+                holder = (ViewHolder) convertView.getTag();
+            }
+
             SubTask subTask = children.get(groupPosition).get(childPosition);
 
-            TextView task_name = (TextView) childView.findViewById(R.id.subTask_name);
-            task_name.setText(subTask.getName());
+            // 名前のセット
+            TextView subtask_name = (TextView)holder.getView(R.id.subTask_name);
+            subtask_name.setText(subTask.getName());
 
-            TextView start_date = (TextView) childView.findViewById(R.id.subTask_startDate);
+            // 開始日のセット
+            TextView start_date = (TextView)holder.getView(R.id.subTask_startDate);
             DateTime sdt = new DateTime().withMillis(subTask.getStartDate());
             start_date.setText(sdt.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 
-            TextView end_date = (TextView) childView.findViewById(R.id.subTask_endDate);
+            // 終了日のセット
+            TextView end_date = (TextView)holder.getView(R.id.subTask_endDate);
             DateTime edt = new DateTime().withMillis(subTask.getEndDate());
             end_date.setText(edt.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
 
-            // Statusの表示
-            StatusView sv = (StatusView) childView.findViewById(R.id.subTask_status);
+            // ステータスのセット
+            StatusView sv = (StatusView)holder.getView(R.id.subTask_status);
             sv.setStatus(subTask.getStatus());
 
-            Animation anim = AnimationUtils.loadAnimation(context, R.anim.item_motion);
-            // ListViewのアイテム要素にロードしたアニメーションを実行する
-            childView.startAnimation(anim);
+            // アニメーションの開始
+            // convertView.startAnimation(holder.anim);
 
-            return childView;
+            return convertView;
         }
     }
 
