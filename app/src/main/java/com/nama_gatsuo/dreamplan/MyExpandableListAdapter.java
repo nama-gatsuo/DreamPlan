@@ -12,7 +12,6 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.nama_gatsuo.dreamplan.View.DateView;
 import com.nama_gatsuo.dreamplan.View.StatusView;
 import com.nama_gatsuo.dreamplan.dao.SubTaskDao;
 import com.nama_gatsuo.dreamplan.model.SubTask;
@@ -215,11 +214,21 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            SubTask subTask = children.get(groupPosition).get(childPosition);
+            final SubTask subTask = children.get(groupPosition).get(childPosition);
 
             // 名前のセット
             TextView subtask_name = (TextView)holder.getView(R.id.subTask_name);
             subtask_name.setText(subTask.getName());
+            subtask_name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // SubTask編集
+                    Intent i = new Intent(v.getContext(), SubtaskEditActivity.class);
+
+                    i.putExtra("SubTask", subTask);
+                    v.getContext().startActivity(i);
+                }
+            });
 
             // 開始日のセット
             TextView start_date = (TextView)holder.getView(R.id.subTask_startDate);
@@ -233,6 +242,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
             // ステータスのセット
             StatusView sv = (StatusView)holder.getView(R.id.subTask_status);
+            sv.invalidate();
             sv.setStatus(subTask.getStatus());
 
             // アニメーションの開始

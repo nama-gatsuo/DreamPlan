@@ -113,7 +113,7 @@ public class SubtaskEditActivity extends FragmentActivity {
             db = dbHelper.getWritableDatabase();
             subTaskDao = new SubTaskDao(db);
 
-            if (subTaskDao.deleteBySubTaskID(subTask.getTaskID()) < 0) {
+            if (subTaskDao.deleteBySubTaskID(subTask.getSubTaskID()) < 0) {
                 throw new Exception("could not delete Task");
             }
             Toast.makeText(this, "削除しました", Toast.LENGTH_LONG).show();

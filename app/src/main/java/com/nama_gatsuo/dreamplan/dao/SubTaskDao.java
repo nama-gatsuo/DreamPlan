@@ -50,7 +50,8 @@ public class SubTaskDao {
     public List<SubTask> findAll() {
         List<SubTask> list = new ArrayList<SubTask>();
         // 全件抽出のqueryを生成
-        Cursor c = db.query(TABLE_NAME, COLUMNS, null, null, null, null, COLUMN_subTaskID);
+        // 開始日でOrderBy
+        Cursor c = db.query(TABLE_NAME, COLUMNS, null, null, null, null, COLUMN_subTaskStartDate);
         // 一行ずつfetch
         while (c.moveToNext()) {
             SubTask subTask = new SubTask();
@@ -73,8 +74,9 @@ public class SubTaskDao {
     public List<SubTask> findByTaskID(int taskID) {
         List<SubTask> list = new ArrayList<SubTask>();
         // WHERE句でCOLUMN_taskIDを指定してqueryを生成
+        // 開始日でOrderBy
         Cursor c = db.query(TABLE_NAME, COLUMNS, COLUMN_taskID + " = ?",
-                new String[] { String.valueOf(taskID) }, null, null, COLUMN_subTaskID);
+                new String[] { String.valueOf(taskID) }, null, null, COLUMN_subTaskStartDate);
 
         // 一行ずつfetch
         while (c.moveToNext()) {

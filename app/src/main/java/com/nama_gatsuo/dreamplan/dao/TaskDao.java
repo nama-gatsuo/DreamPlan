@@ -48,7 +48,8 @@ public class TaskDao {
     public List<Task> findAll() {
         List<Task> list = new ArrayList<Task>();
         // 全件抽出のqueryを生成
-        Cursor c = db.query(TABLE_NAME, COLUMNS, null, null, null, null, COLUMN_taskID);
+        // 開始日でOrderBy
+        Cursor c = db.query(TABLE_NAME, COLUMNS, null, null, null, null, COLUMN_taskStartDate);
         // 一行ずつfetch
         while (c.moveToNext()) {
             Task task = new Task();
@@ -71,7 +72,8 @@ public class TaskDao {
         List<Task> list = new ArrayList<Task>();
         // Where句でProjectIDを指定してquery生成
         String where = COLUMN_projectID + " = " + projectID;
-        Cursor c = db.query(TABLE_NAME, COLUMNS, where, null, null, null, COLUMN_taskID);
+        // 開始日でOrderBy
+        Cursor c = db.query(TABLE_NAME, COLUMNS, where, null, null, null, COLUMN_taskStartDate);
         // 一行ずつfetch
         while (c.moveToNext()) {
             Task task = new Task();

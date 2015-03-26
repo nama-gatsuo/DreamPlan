@@ -28,4 +28,5 @@ dependencies {
     compile 'com.doomonafireball.betterpickers:library:1.5.4'
     compile 'net.danlew:android.joda:2.7.1'
     compile project(':libraries:paralloid')
+    compile project(':libraries:tablefixheaders')
 }
