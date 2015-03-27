@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.nama_gatsuo.dreamplan.model.SubTask;
 import com.nama_gatsuo.dreamplan.model.Task;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -24,12 +26,42 @@ public class GanttTableAdapter extends BaseTableAdapter {
     private float scale;
     private ShowProjectActivity activity;
     private SQLiteDatabase db;
+    private TaskDao taskDao;
+    private SubTaskDao subTaskDao;
+
     private List<Task> groups = null;
     private ArrayList<List<SubTask>> children = null;
+
+    private class ViewHolder {
+        private HashMap<Integer, View> storedViews = new HashMap<Integer, View>();
+
+        public ViewHolder addView(View view) {
+            int id = view.getId();
+            storedViews.put(id, view);
+            return this;
+        }
+        public View getView(int id) {
+            return storedViews.get(id);
+        }
+    }
 
     public GanttTableAdapter(Context context) {
         this.activity = (ShowProjectActivity)context;
         scale = context.getResources().getDisplayMetrics().density;
+
+        // Database接続
+        DatabaseHelper dbHelper = new DatabaseHelper(activity);
+        db = dbHelper.getWritableDatabase();
+        taskDao = new TaskDao(db);
+        subTaskDao = new SubTaskDao(db);
+
+        // Listを準備
+        groups = taskDao.findByProjectID(activity.getProject().getProjectID());
+        children = new ArrayList<List<SubTask>>();
+        for (Task task : groups) {
+            List<SubTask> slist = subTaskDao.findByTaskID(task.getTaskID());
+            children.add(slist);
+        }
     }
 
     @Override
@@ -82,28 +114,46 @@ public class GanttTableAdapter extends BaseTableAdapter {
     }
 
     private View getListView(int row, int column, View convertView, ViewGroup parent) {
-        if (convertView == null) {
+        ViewHolder holder;
+        if (convertView == null || convertView.getTag() == null) {
             convertView = LayoutInflater.from(activity).inflate(R.layout.item_table_list, null);
-        }
 
-        // Database接続
-        DatabaseHelper dbHelper = new DatabaseHelper(activity);
-        db = dbHelper.getWritableDatabase();
-        TaskDao taskDao = new TaskDao(db);
-        SubTaskDao subTaskDao = new SubTaskDao(db);
+            LinearLayout group_list = (LinearLayout) convertView.findViewById(R.id.group_list);
 
-        // アダプターに渡すためのListを準備
-        groups = taskDao.findByProjectID(activity.getProject().getProjectID());
-        children = new ArrayList<List<SubTask>>();
-        for (Task task : groups) {
-            List<SubTask> slist = subTaskDao.findByTaskID(task.getTaskID());
-            children.add(slist);
+            holder = new ViewHolder();
+            holder.addView(group_list);
+
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder)convertView.getTag();
         }
 
         // リスト部分の表示
-        ListView group_list = (ListView) convertView.findViewById(R.id.group_list);
-        GroupListAdapter gla = new GroupListAdapter(activity, groups, children, R.layout.division_group);
-        group_list.setAdapter(gla);
+        LinearLayout group_list = (LinearLayout) holder.getView(R.id.group_list);
+        group_list.removeAllViews();
+
+        for (int i = 0; i < groups.size(); i++) {
+            Task _task = groups.get(i);
+            View group = LayoutInflater.from(activity).inflate(R.layout.division_group, null);
+
+            TextView task_name = (TextView) group.findViewById(R.id.div_task_name);
+            task_name.setText(_task.getName());
+
+            LinearLayout child_list = (LinearLayout) group.findViewById(R.id.div_child_list);
+
+            List<SubTask> _children = children.get(i);
+
+            for (int j = 0; j < _children.size(); j++) {
+                View child = activity.getLayoutInflater().inflate(R.layout.division_child, null);
+
+                TextView subTask_name = (TextView)child.findViewById(R.id.div_subtask_name);
+                subTask_name.setText(_children.get(j).getName());
+
+                child_list.addView(child);
+            }
+            group_list.addView(group);
+        }
+
         return convertView;
     }
 

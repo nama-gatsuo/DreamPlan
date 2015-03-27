@@ -158,9 +158,21 @@ public class TaskDao {
 
     // ID値の最大を返すメソッド
     public int getLastID() {
-        ArrayList<Task> tlist = new ArrayList<Task>();
-        tlist.addAll(findAll());
-        int lastTaskID = (tlist.get(tlist.size() - 1)).getTaskID();
+        int lastTaskID = 0;
+
+        // SELECT句の用意
+        String[] column = { "MAX(" + COLUMN_taskID + ")" };
+
+        Cursor c = db.query(TABLE_NAME, column, null,
+                null, null, null, null );
+
+        // 一行だけfetch
+        if (c.moveToFirst()) {
+            lastTaskID = c.getInt(c.getColumnIndex(column[0]));
+        }
+        // Cursorのclose
+        c.close();
+
         return lastTaskID;
     }
 

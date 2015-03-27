@@ -173,9 +173,20 @@ public class SubTaskDao {
 
     // ID値の最大を返すメソッド
     public int getLastID() {
-        ArrayList<SubTask> stlist = new ArrayList<SubTask>();
-        stlist.addAll(findAll());
-        int lastTaskID = (stlist.get(stlist.size() - 1)).getSubTaskID();
+        int lastTaskID = 0;
+
+        // SELECT句の用意
+        String[] column = { "MAX(" + COLUMN_subTaskID + ")" };
+
+        Cursor c = db.query(TABLE_NAME, column, null, null, null, null, null );
+
+        // 一行だけfetch
+        if (c.moveToFirst()) {
+            lastTaskID = c.getInt(c.getColumnIndex(column[0]));
+        }
+        // Cursorのclose
+        c.close();
+
         return lastTaskID;
     }
 

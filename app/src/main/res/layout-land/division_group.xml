@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:divider="@drawable/divider_item"
-    android:dividerPadding="8dp"
-    android:showDividers="middle">
+    android:showDividers="middle"
+    android:dividerPadding="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="36dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal" >
 
         <com.nama_gatsuo.dreamplan.View.TaskIndex
             android:layout_width="30dp"
@@ -30,11 +30,10 @@
     <LinearLayout
         android:id="@+id/div_child_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:divider="@drawable/divider_item"
         android:showDividers="middle"
-        android:dividerPadding="8dp"
-        android:layout_marginLeft="8dp"/>
+        android:dividerPadding="8dp" />
 
 </LinearLayout>

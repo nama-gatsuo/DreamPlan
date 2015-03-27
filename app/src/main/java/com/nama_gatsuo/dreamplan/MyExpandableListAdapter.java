@@ -146,6 +146,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
         // ステータスのセット
         StatusView sv = (StatusView)holder.getView(R.id.task_status);
+        sv.invalidate();
         sv.setStatus(task.getStatus());
 
         // アニメーションの開始
