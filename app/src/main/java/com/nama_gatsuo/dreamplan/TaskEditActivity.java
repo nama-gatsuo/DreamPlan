@@ -64,7 +64,7 @@ public class TaskEditActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
-                DateTime now = DateTime.now();
+                DateTime now = DateTime.now().withTimeAtStartOfDay();
                 CalendarDatePickerDialog cdpd = CalendarDatePickerDialog
                         .newInstance(startDate, now.getYear(), now.getMonthOfYear() - 1,
                                 now.getDayOfMonth());
@@ -77,7 +77,7 @@ public class TaskEditActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
-                DateTime now = DateTime.now();
+                DateTime now = DateTime.now().withTimeAtStartOfDay();
                 CalendarDatePickerDialog calendarDatePickerDialog = CalendarDatePickerDialog
                         .newInstance(endDate, now.getYear(), now.getMonthOfYear() - 1,
                                 now.getDayOfMonth());

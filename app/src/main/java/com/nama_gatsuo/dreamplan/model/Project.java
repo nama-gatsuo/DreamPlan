@@ -15,7 +15,7 @@ public class Project {
     public void setProjectID(int projectID) { this.projectID = projectID; }
     public int getProjectID() { return projectID; }
 
-    public void setName(String taskName) { this.name = name; }
+    public void setName(String name) { this.name = name; }
     public String getName() { return name; }
 
     public void setDescription(String description) { this.description = description; }
@@ -27,7 +27,7 @@ public class Project {
     public void setStartDate(long startDate) { this.startDate = startDate; }
     public long getStartDate() { return startDate; }
 
-    public void setEndDate(long taskEndDate) { this.endDate = taskEndDate; }
+    public void setEndDate(long endDate) { this.endDate = endDate; }
     public long getEndDate() { return endDate; }
 
     // validation

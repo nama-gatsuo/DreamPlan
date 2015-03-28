@@ -9,13 +9,12 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/list_button_bg"
         android:text="add"
         android:textSize="18sp"
-        android:textColor="#ffffff"
-        android:elevation="8dp"/>
+        android:textColor="#ffffff" />
 
     <!-- 影部分 -->
     <View

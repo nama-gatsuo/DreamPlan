@@ -7,14 +7,13 @@ import android.widget.TextView;
 import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
 
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 
 /**
  * Created by nagamatsuayumu on 15/02/28.
  */
 public class DateView extends TextView implements CalendarDatePickerDialog.OnDateSetListener {
-    DateTime dt;
+    private DateTime dt;
 
     public DateView(Context context) {
         super(context);
@@ -34,9 +33,8 @@ public class DateView extends TextView implements CalendarDatePickerDialog.OnDat
 
     @Override
     public void onDateSet(CalendarDatePickerDialog calendarDatePickerDialog, int year, int month, int day) {
-        dt = new DateTime().withDate(year, month + 1, day);
-        LocalDate ld = dt.toLocalDate();
-        this.setText(ld.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
+        dt = new DateTime().withDate(year, month + 1, day).withTimeAtStartOfDay();
+        this.setText(dt.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
     }
 
     public long getDate() {
@@ -44,8 +42,7 @@ public class DateView extends TextView implements CalendarDatePickerDialog.OnDat
     }
 
     public void setDate(long date) {
-        dt = new DateTime().withMillis(date);
-        LocalDate ld = dt.toLocalDate();
-        this.setText(ld.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
+        dt = new DateTime().withMillis(date).withTimeAtStartOfDay();
+        this.setText(dt.toString(DateTimeFormat.forPattern("yyyy/MM/dd")));
     }
 }

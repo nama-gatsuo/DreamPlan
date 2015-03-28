@@ -4,12 +4,13 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.nama_gatsuo.dreamplan.dao.ProjectDao;
 import com.nama_gatsuo.dreamplan.dao.SubTaskDao;
 import com.nama_gatsuo.dreamplan.dao.TaskDao;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "data";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Constructor
     public DatabaseHelper(Context context) {
@@ -18,12 +19,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // CREATE TABLE
+        db.execSQL(ProjectDao.CREATE_SQL);
         db.execSQL(TaskDao.CREATE_SQL);
         db.execSQL(SubTaskDao.CREATE_SQL);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        if( oldVersion == 1 && newVersion == 2 ){
+            db.execSQL(ProjectDao.CREATE_SQL);
+        }
     }
 }
 

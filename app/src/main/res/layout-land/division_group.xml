@@ -1,39 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:divider="@drawable/divider_item"
-    android:showDividers="middle"
-    android:dividerPadding="8dp">
+    android:showDividers="middle">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/div_task_name"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:orientation="horizontal" >
-
-        <com.nama_gatsuo.dreamplan.View.TaskIndex
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"/>
-
-        <TextView
-            android:id="@+id/div_task_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="task name"
-            android:textSize="12sp"
-            android:layout_gravity="center_vertical"/>
-
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:height="30dp"
+        android:text="task name"
+        android:textSize="12sp"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_table_list_task"
+        android:paddingLeft="30dp"/>
 
     <LinearLayout
         android:id="@+id/div_child_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
         android:orientation="vertical"
         android:divider="@drawable/divider_item"
-        android:showDividers="middle"
-        android:dividerPadding="8dp" />
+        android:showDividers="middle" />
 
 </LinearLayout>

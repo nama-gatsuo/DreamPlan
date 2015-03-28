@@ -177,12 +177,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
                     SubTask subTask = new SubTask();
 
                     // SubTaskがあれば最大のTaskIDに1を足す
-                    if (!subTaskDao.exists()) {
-                        subTask.setSubTaskID(1);;
-                    } else {
-                        subTask.setSubTaskID(subTaskDao.getLastID() + 1);
-                    }
-
+                    subTask.setSubTaskID(subTaskDao.getLastID() + 1);
                     subTask.setTaskID(getGroup(groupPosition).getTaskID());
                     subTask.setProjectID(getGroup(groupPosition).getProjectID());
 

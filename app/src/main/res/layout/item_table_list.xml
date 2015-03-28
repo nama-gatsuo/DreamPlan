@@ -6,15 +6,15 @@
 
     <LinearLayout
         android:id="@+id/group_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:divider="@drawable/divider_item"
-        android:showDividers="middle"
-        android:dividerPadding="8dp" />
+        android:showDividers="middle"/>
 
     <View
-        android:layout_width="1.5dp"
+        android:layout_width="1dp"
         android:layout_height="match_parent"
         android:background="@drawable/separator_table_first" />
 

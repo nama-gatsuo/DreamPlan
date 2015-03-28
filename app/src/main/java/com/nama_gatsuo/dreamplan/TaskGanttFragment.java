@@ -39,6 +39,7 @@ public class TaskGanttFragment extends Fragment {
         TableFixHeaders tableFixHeaders = (TableFixHeaders) view.findViewById(R.id.table);
         GanttTableAdapter baseTableAdapter = new GanttTableAdapter(parent);
         tableFixHeaders.setAdapter(baseTableAdapter);
+        tableFixHeaders.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
 
         return view;
     }

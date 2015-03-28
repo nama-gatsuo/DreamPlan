@@ -1,5 +1,6 @@
 package com.nama_gatsuo.dreamplan;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -30,8 +31,15 @@ public class TaskListFragment extends Fragment {
     private MyExpandableListAdapter adapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onAttach(Activity activity) {
+        // 親を変数として格納
+        parent = (ShowProjectActivity) activity;
+        projectID = parent.getProject().getProjectID();
+        super.onAttach(activity);
+    }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_task_list, container, false);
 
         // Database接続
@@ -93,14 +101,8 @@ public class TaskListFragment extends Fragment {
 
                 Task task = new Task();
 
-                int taskID;
-                // Taskがなければ最大のTaskIDに1を足す
-                if (!taskDao.exists()) {
-                    taskID = 1;
-                } else {
-                    taskID = taskDao.getLastID() + 1;
-                }
-                task.setTaskID(taskID);
+                // 最大のTaskIDに1を足す
+                task.setTaskID(taskDao.getLastID() + 1);
                 task.setProjectID(projectID);
 
                 i.putExtra("Task", task);
@@ -110,14 +112,6 @@ public class TaskListFragment extends Fragment {
         });
 
         return view;
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        // 親を変数として格納
-        parent = (ShowProjectActivity) activity;
-        this.projectID = parent.getProject().getProjectID();
-        super.onAttach(activity);
     }
 
     @Override

@@ -21,7 +21,7 @@
 
         <EditText
             android:id="@+id/subTask_edit_name"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -31,7 +31,7 @@
 
         <com.nama_gatsuo.dreamplan.View.DateView
             android:id="@+id/subTask_edit_startDate"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -41,7 +41,7 @@
 
         <com.nama_gatsuo.dreamplan.View.DateView
             android:id="@+id/subTask_edit_endDate"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -51,7 +51,7 @@
 
         <Spinner
             android:id="@+id/subTask_edit_status"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/spnStatus_items"
             android:prompt="@string/spnStatus_prompt"/>

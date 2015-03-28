@@ -1,21 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/div_subtask_name"
     android:layout_width="match_parent"
-    android:layout_height="36dp"
-    android:orientation="horizontal"
-    android:layout_marginLeft="8dp" >
-
-    <com.nama_gatsuo.dreamplan.View.SubtaskIndex
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center_vertical" />
-
-    <TextView
-        android:id="@+id/div_subtask_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="subtask name"
-        android:textSize="12sp"
-        android:layout_gravity="center_vertical" />
-
-</LinearLayout>
+    android:layout_height="wrap_content"
+    android:height="30dp"
+    android:text="subtask name"
+    android:textSize="12sp"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_table_list_subtask"
+    android:paddingLeft="20dp"/>

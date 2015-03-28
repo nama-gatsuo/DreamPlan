@@ -1,11 +1,14 @@
 package com.nama_gatsuo.dreamplan;
 
+import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.Configuration;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import com.nama_gatsuo.dreamplan.dao.ProjectDao;
 import com.nama_gatsuo.dreamplan.model.Project;
 
 public class ShowProjectActivity extends FragmentActivity {
@@ -22,7 +25,13 @@ public class ShowProjectActivity extends FragmentActivity {
         setContentView(R.layout.activity_show_project);
 
         // IntentでのProjectIDの受け取り
-        project = (Project) getIntent().getSerializableExtra("Project");
+        // project = (Project) getIntent().getSerializableExtra("Project");
+
+        // テストとしてID=1のProjectを選択
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ProjectDao projectDao = new ProjectDao(db);
+        project = projectDao.findByProjectID(1);
 
         // Fragment表示のための準備
         manager = getFragmentManager();
@@ -40,6 +49,10 @@ public class ShowProjectActivity extends FragmentActivity {
             transaction.add( R.id.container, tlf, "list");
             isPortrait = true;
         } else if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // ActionBarを非表示にする
+            ActionBar actionBar = getActionBar();
+            actionBar.hide();
+
             // TaskGanttFragmentを表示
             TaskGanttFragment tgf = new TaskGanttFragment();
             transaction.add(R.id.container, tgf, "gantt");

@@ -13,7 +13,7 @@ import java.util.List;
  * Created by nagamatsuayumu on 15/03/01.
  */
 public class ProjectDao {
-    public static final String TABLE_NAME = "ProjectID";
+    public static final String TABLE_NAME = "project";
 
     // DBカラム名
     static final String COLUMN_projectID = "projectID";
@@ -67,8 +67,8 @@ public class ProjectDao {
     }
 
     // ProjectIDを指定して取り出すメソッド
-    public Project findBySubTaskID(int projectID) {
-        // WHERE句でCOLUMN_taskIDを指定してqueryを生成
+    public Project findByProjectID(int projectID) {
+        // WHERE句でCOLUMN_projectIDを指定してqueryを生成
         Cursor c = db.query(TABLE_NAME, COLUMNS, COLUMN_projectID + " = ?",
                 new String[]{String.valueOf(projectID)}, null, null, COLUMN_projectID);
         Project pj = null;
@@ -76,7 +76,7 @@ public class ProjectDao {
         // 一行だけfetch
         if (c.moveToFirst()) {
             pj = new Project();
-            pj.setProjectID(c.getColumnIndex(COLUMN_projectID));
+            pj.setProjectID(c.getInt(c.getColumnIndex(COLUMN_projectID)));
             pj.setName(c.getString(c.getColumnIndex(COLUMN_projectName)));
             pj.setDescription(c.getString(c.getColumnIndexOrThrow(COLUMN_projectDescription)));
             pj.setStatus(c.getInt(c.getColumnIndex(COLUMN_projectStatus)));
@@ -114,7 +114,7 @@ public class ProjectDao {
     }
 
     // SubTaskIDを指定してSubTaskのデータを削除するメソッド
-    public long deleteBySubTaskID(int subTaskID) {
+    public long deleteByProjectID(int subTaskID) {
         // 値設定
         String where = COLUMN_projectID + " = ?";
         String[] arg = { String.valueOf(subTaskID) };
@@ -123,15 +123,26 @@ public class ProjectDao {
 
     // ID値の最大を返すメソッド
     public int getLastID() {
-        ArrayList<Project> pjlist = new ArrayList<Project>();
-        pjlist = (ArrayList<Project>)findAll();
-        int lastID = (pjlist.get(pjlist.size())).getProjectID();
-        return lastID;
+        int lastTaskID = 0;
+
+        // SELECT句の用意
+        String[] column = { "MAX(" + COLUMN_projectID + ")" };
+
+        Cursor c = db.query(TABLE_NAME, column, null, null, null, null, null );
+
+        // 一行だけfetch
+        if (c.moveToFirst()) {
+            lastTaskID = c.getInt(c.getColumnIndex(column[0]));
+        }
+        // Cursorのclose
+        c.close();
+
+        return lastTaskID;
     }
 
     // SubTaskIDの存在をチェックするメソッド
     public boolean exists(int projectID) {
-        return findBySubTaskID(projectID) != null;
+        return findByProjectID(projectID) != null;
     }
 
     // データの存在をチェックするメソッド
