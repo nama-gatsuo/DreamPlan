@@ -4,17 +4,17 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.view.Display;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.inqbarna.tablefixheaders.adapters.BaseTableAdapter;
+import com.nama_gatsuo.dreamplan.View.BarView;
 import com.nama_gatsuo.dreamplan.View.CalendarView;
+import com.nama_gatsuo.dreamplan.View.ScaleView;
 import com.nama_gatsuo.dreamplan.dao.SubTaskDao;
 import com.nama_gatsuo.dreamplan.dao.TaskDao;
 import com.nama_gatsuo.dreamplan.model.Project;
@@ -27,6 +27,7 @@ import org.joda.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.zip.Inflater;
 
 /**
  * Created by nagamatsuayumu on 15/03/27.
@@ -47,7 +48,7 @@ public class GanttTableAdapter extends BaseTableAdapter {
     private List<Task> groups = null;
     private ArrayList<List<SubTask>> children = null;
     private int ny = 0;
-    private int dy = 31;
+    private int dy = 30;
 
 
 
@@ -112,8 +113,8 @@ public class GanttTableAdapter extends BaseTableAdapter {
         }
 
         // 日付の個数(nx)を求める
-        Duration d = new Duration(maxDate, minDate);
-        nx = -((int)d.getStandardDays()) + 1;
+        Duration d = new Duration(minDate, maxDate);
+        nx = (int)d.getStandardDays() + 1;
 
     }
 
@@ -163,7 +164,7 @@ public class GanttTableAdapter extends BaseTableAdapter {
         }
         CalendarView cv = ((CalendarView) convertView.findViewById(R.id.calendar));
         cv.setRange(minDate, maxDate);
-        cv.setYAxis(nx, dx);
+        cv.setXAxis(nx, dx);
 
         return convertView;
     }
@@ -173,10 +174,10 @@ public class GanttTableAdapter extends BaseTableAdapter {
         if (convertView == null || convertView.getTag() == null) {
             convertView = LayoutInflater.from(activity).inflate(R.layout.item_table_list, null);
 
-            LinearLayout group_list = (LinearLayout) convertView.findViewById(R.id.group_list);
+            LinearLayout list = (LinearLayout) convertView.findViewById(R.id.group_list);
 
             holder = new ViewHolder();
-            holder.addView(group_list);
+            holder.addView(list);
 
             convertView.setTag(holder);
         } else {
@@ -184,40 +185,82 @@ public class GanttTableAdapter extends BaseTableAdapter {
         }
 
         // リスト部分の表示
-        LinearLayout group_list = (LinearLayout) holder.getView(R.id.group_list);
-        group_list.removeAllViews();
+        LinearLayout list = (LinearLayout) holder.getView(R.id.group_list);
+        list.removeAllViews();
 
         for (int i = 0; i < groups.size(); i++) {
             Task _task = groups.get(i);
-            View group = LayoutInflater.from(activity).inflate(R.layout.division_group, null);
 
-            TextView task_name = (TextView) group.findViewById(R.id.div_task_name);
-            task_name.setText(_task.getName());
+            TextView task = (TextView)LayoutInflater.from(activity).inflate(R.layout.division_group, null);
+            task.setText(_task.getName());
 
-            LinearLayout child_list = (LinearLayout) group.findViewById(R.id.div_child_list);
+            list.addView(task);
 
             List<SubTask> _children = children.get(i);
 
             for (int j = 0; j < _children.size(); j++) {
-                View child = activity.getLayoutInflater().inflate(R.layout.division_child, null);
 
-                TextView subTask_name = (TextView)child.findViewById(R.id.div_subtask_name);
-                subTask_name.setText(_children.get(j).getName());
+                TextView subTask = (TextView)LayoutInflater.from(activity).inflate(R.layout.division_child, null);
+                subTask.setText(_children.get(j).getName());
 
-                child_list.addView(child);
+                list.addView(subTask);
             }
-            group_list.addView(group);
         }
-
         return convertView;
     }
 
     private View getGanttView(View convertView) {
-        if (convertView == null) {
+        ViewHolder holder;
+        if (convertView == null || convertView.getTag() == null) {
             convertView = LayoutInflater.from(activity).inflate(R.layout.item_table_gantt, null);
+
+            ScaleView scale = (ScaleView) convertView.findViewById(R.id.scale);
+            LinearLayout gantt = (LinearLayout) convertView.findViewById(R.id.group_bars);
+
+            holder = new ViewHolder();
+            holder.addView(scale);
+            holder.addView(gantt);
+
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder)convertView.getTag();
         }
-        String test = "test";
-        ((TextView) convertView.findViewById(R.id.gantt)).setText(test);
+
+        // Display scale as background
+        ScaleView scale = (ScaleView) holder.getView(R.id.scale);
+        scale.setRange(minDate, maxDate);
+        scale.setXAxis(nx, dx);
+
+        // Display Gantt Graph
+        LinearLayout bars = (LinearLayout) holder.getView(R.id.group_bars);
+        bars.removeAllViews();
+
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dy);
+
+        for (int i = 0; i < groups.size(); i++) {
+            Task _task = groups.get(i);
+            BarView task_bar = new BarView(activity);
+            task_bar.setMinimumHeight(dy);
+            task_bar.setRange(minDate, maxDate);
+            task_bar.setDimen(dx, dy);
+            task_bar.setTask(_task);
+
+            bars.addView(task_bar, lp);
+
+            List<SubTask> _children = children.get(i);
+
+            for (int j = 0; j < _children.size(); j++) {
+                Task _subtask = _children.get(j);
+
+                BarView subtask_bar = new BarView(activity);
+                subtask_bar.setMinimumHeight(dy);
+                subtask_bar.setRange(minDate, maxDate);
+                subtask_bar.setDimen(dx, dy);
+                subtask_bar.setTask(_subtask);
+
+                bars.addView(subtask_bar, lp);
+            }
+        }
         return convertView;
     }
 
@@ -253,7 +296,8 @@ public class GanttTableAdapter extends BaseTableAdapter {
                 Point size = new Point();
                 display.getSize(size);
 
-                int dispHeight = size.y;
+                // Display size minus proj
+                int dispHeight = size.y - Math.round(32 * scale);
 
                 if (dispHeight > listHeight) {
                     height = dispHeight;

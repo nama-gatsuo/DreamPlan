@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_table_header"
+    android:background="@color/primary"
     android:orientation="horizontal" >
 
     <TextView
@@ -10,6 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:textColor="#FFFFFF"
         android:gravity="center_vertical|left"
         android:paddingLeft="10dp" />
 
