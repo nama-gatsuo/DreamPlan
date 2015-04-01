@@ -25,8 +25,12 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.getbase:floatingactionbutton:1.7.0'
-    compile 'com.doomonafireball.betterpickers:library:1.5.4'
+    compile ('com.doomonafireball.betterpickers:library:1.5.4'){
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
+    compile 'org.jraf:android-switch-backport:1.4.0@aar'
     compile 'net.danlew:android.joda:2.7.1'
     compile project(':libraries:paralloid')
     compile project(':libraries:tablefixheaders')
+    compile 'com.android.support:appcompat-v7:21.0.+'
 }

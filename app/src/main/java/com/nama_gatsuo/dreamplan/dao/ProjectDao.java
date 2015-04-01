@@ -57,8 +57,8 @@ public class ProjectDao {
             pj.setName(c.getString(c.getColumnIndex(COLUMN_projectName)));
             pj.setDescription(c.getString(c.getColumnIndexOrThrow(COLUMN_projectDescription)));
             pj.setStatus(c.getInt(c.getColumnIndex(COLUMN_projectStatus)));
-            pj.setStartDate(c.getInt(c.getColumnIndex(COLUMN_projectStartDate)));
-            pj.setEndDate(c.getInt(c.getColumnIndex(COLUMN_projectEndDate)));
+            pj.setStartDate(c.getLong(c.getColumnIndex(COLUMN_projectStartDate)));
+            pj.setEndDate(c.getLong(c.getColumnIndex(COLUMN_projectEndDate)));
             list.add(pj);
         }
         // Cursorのclose
