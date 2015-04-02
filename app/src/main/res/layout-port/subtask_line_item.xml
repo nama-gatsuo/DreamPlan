@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="8dp"
-    android:paddingLeft="32dp"
+    android:paddingLeft="24dp"
     android:elevation="8dp">
 
     <RelativeLayout
@@ -61,7 +60,7 @@
     <!-- 影部分 -->
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:background="@color/list_item_shadow" />
 
 </LinearLayout>

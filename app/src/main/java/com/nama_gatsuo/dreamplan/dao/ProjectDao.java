@@ -9,9 +9,6 @@ import com.nama_gatsuo.dreamplan.model.Project;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by nagamatsuayumu on 15/03/01.
- */
 public class ProjectDao {
     public static final String TABLE_NAME = "project";
 
@@ -53,7 +50,7 @@ public class ProjectDao {
         // 一行ずつfetch
         while (c.moveToNext()) {
             Project pj = new Project();
-            pj.setProjectID(c.getColumnIndex(COLUMN_projectID));
+            pj.setProjectID(c.getInt(c.getColumnIndex(COLUMN_projectID)));
             pj.setName(c.getString(c.getColumnIndex(COLUMN_projectName)));
             pj.setDescription(c.getString(c.getColumnIndexOrThrow(COLUMN_projectDescription)));
             pj.setStatus(c.getInt(c.getColumnIndex(COLUMN_projectStatus)));
@@ -88,7 +85,7 @@ public class ProjectDao {
         return pj;
     }
 
-    // SubTaskを保存するメソッド
+    // Projectを保存するメソッド
     public long save(Project pj) {
         if (!pj.validate()) {
             return -1;
@@ -101,7 +98,7 @@ public class ProjectDao {
         values.put(COLUMN_projectStartDate, pj.getStartDate());
         values.put(COLUMN_projectEndDate, pj.getEndDate());
 
-        // 同じSubTaskIDが存在するなら更新
+        // 同じProjectIDが存在するなら更新
         if (exists(pj.getProjectID())) {
             String where = COLUMN_projectID + " = ?";
             String[] arg = { String.valueOf(pj.getProjectID()) };
@@ -113,17 +110,17 @@ public class ProjectDao {
         }
     }
 
-    // SubTaskIDを指定してSubTaskのデータを削除するメソッド
-    public long deleteByProjectID(int subTaskID) {
+    // ProjectIDを指定してProjectのデータを削除するメソッド
+    public long deleteByProjectID(int projectID) {
         // 値設定
         String where = COLUMN_projectID + " = ?";
-        String[] arg = { String.valueOf(subTaskID) };
+        String[] arg = { String.valueOf(projectID) };
         return db.delete(TABLE_NAME, where, arg);
     }
 
     // ID値の最大を返すメソッド
     public int getLastID() {
-        int lastTaskID = 0;
+        int lastID = 0;
 
         // SELECT句の用意
         String[] column = { "MAX(" + COLUMN_projectID + ")" };
@@ -132,15 +129,15 @@ public class ProjectDao {
 
         // 一行だけfetch
         if (c.moveToFirst()) {
-            lastTaskID = c.getInt(c.getColumnIndex(column[0]));
+            lastID = c.getInt(c.getColumnIndex(column[0]));
         }
         // Cursorのclose
         c.close();
 
-        return lastTaskID;
+        return lastID;
     }
 
-    // SubTaskIDの存在をチェックするメソッド
+    // ProjectIDの存在をチェックするメソッド
     public boolean exists(int projectID) {
         return findByProjectID(projectID) != null;
     }

@@ -1,9 +1,11 @@
 package com.nama_gatsuo.dreamplan.model;
 
+import java.io.Serializable;
+
 /**
  * Created by nagamatsuayumu on 15/03/01.
  */
-public class Project {
+public class Project implements Serializable {
     private int projectID;
     private String name;
     private String description;

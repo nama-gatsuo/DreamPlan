@@ -2,6 +2,7 @@ package com.nama_gatsuo.dreamplan;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,15 +24,17 @@ import java.util.List;
 
 public class ProjectCardActivity extends Activity {
     List<Project> projects;
+    private SQLiteDatabase db;
+    private ProjectDao projectDao;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onResume() {
+        super.onResume();
         setContentView(R.layout.activity_project_card);
 
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ProjectDao projectDao = new ProjectDao(db);
+        projectDao = new ProjectDao(db);
 
         projects = projectDao.findAll();
 
@@ -90,7 +93,7 @@ public class ProjectCardActivity extends Activity {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             // Inflate Project Card View
-            Project _project = projects.get(position);
+            final Project _project = projects.get(position);
 
             ViewHolder holder;
             if (convertView == null || convertView.getTag() == null) {
@@ -102,16 +105,45 @@ public class ProjectCardActivity extends Activity {
             }
 
             if (position == projects.size() - 1) {
+                // Create New Project Block
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(v.getContext(), ProjectEditActivity.class);
+
+                        // Maximum ID plus 1
+                        _project.setProjectID(projectDao.getLastID() + 1);
+                        i.putExtra("Project", _project);
+                        v.getContext().startActivity(i);
+                    }
+                });
+
                 holder.pj_image.setImageResource(R.drawable.image);
                 holder.pj_name.setText("Create Plan");
-
             } else {
+                // Existing Project Block
                 holder.pj_image.setImageResource(R.drawable.image);
+                holder.pj_image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(v.getContext(), ShowProjectActivity.class);
+                        i.putExtra("Project", _project);
+                        v.getContext().startActivity(i);
+                    }
+                });
+
                 holder.pj_name.setText(_project.getName());
+                holder.pj_name.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(v.getContext(), ProjectEditActivity.class);
+                        i.putExtra("Project", _project);
+                        v.getContext().startActivity(i);
+                    }
+                });
 
                 DateTime edt = new DateTime().withMillis(_project.getEndDate());
                 holder.pj_endDate.setText(edt.toString(DateTimeFormat.forPattern("MM/dd")));
-
             }
 
             return convertView;

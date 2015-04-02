@@ -27,5 +27,6 @@
     <string name="title_activity_subtask_edit">SubtaskEditActivity</string>
     <string name="title_activity_task_gantt">TaskGanttActivity</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_project_edit">ProjectEditActivity</string>
 
 </resources>

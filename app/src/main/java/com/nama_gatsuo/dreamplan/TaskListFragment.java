@@ -1,6 +1,5 @@
 package com.nama_gatsuo.dreamplan;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;

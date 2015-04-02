@@ -50,9 +50,6 @@ public class GanttTableAdapter extends BaseTableAdapter {
     private int ny = 0;
     private int dy = 30;
 
-
-
-
     private class ViewHolder {
         private HashMap<Integer, View> storedViews = new HashMap<Integer, View>();
 
@@ -115,7 +112,6 @@ public class GanttTableAdapter extends BaseTableAdapter {
         // 日付の個数(nx)を求める
         Duration d = new Duration(minDate, maxDate);
         nx = (int)d.getStandardDays() + 1;
-
     }
 
     @Override
@@ -289,14 +285,14 @@ public class GanttTableAdapter extends BaseTableAdapter {
                 height = Math.round(32 * scale);
                 break;
             case 0:
-                int listHeight = Math.round((ny * dy + (10 * scale)));
+                int listHeight = Math.round((ny * (dy + scale)));
 
                 WindowManager wm = activity.getWindowManager();
                 Display display = wm.getDefaultDisplay();
                 Point size = new Point();
                 display.getSize(size);
 
-                // Display size minus proj
+                // Display size minus ProjectView
                 int dispHeight = size.y - Math.round(32 * scale);
 
                 if (dispHeight > listHeight) {

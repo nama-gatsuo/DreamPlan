@@ -25,13 +25,7 @@ public class ShowProjectActivity extends FragmentActivity {
         setContentView(R.layout.activity_show_project);
 
         // IntentでのProjectIDの受け取り
-        // project = (Project) getIntent().getSerializableExtra("Project");
-
-        // テストとしてID=1のProjectを選択
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ProjectDao projectDao = new ProjectDao(db);
-        project = projectDao.findByProjectID(1);
+        project = (Project) getIntent().getSerializableExtra("Project");
 
         // Fragment表示のための準備
         manager = getFragmentManager();
