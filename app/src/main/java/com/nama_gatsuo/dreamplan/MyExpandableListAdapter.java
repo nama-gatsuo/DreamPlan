@@ -12,6 +12,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.idunnololz.widgets.AnimatedExpandableListView;
 import com.nama_gatsuo.dreamplan.View.StatusView;
 import com.nama_gatsuo.dreamplan.dao.SubTaskDao;
 import com.nama_gatsuo.dreamplan.model.SubTask;
@@ -23,7 +24,7 @@ import org.joda.time.format.DateTimeFormat;
 import java.util.HashMap;
 import java.util.List;
 
-public class MyExpandableListAdapter extends BaseExpandableListAdapter {
+public class MyExpandableListAdapter extends AnimatedExpandableListView.AnimatedExpandableListAdapter {
     private List<Task> groups;
     private List<List<SubTask>> children;
     private Context context = null;
@@ -62,7 +63,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public int getChildrenCount(int groupPosition) {
+    public int getRealChildrenCount(int groupPosition) {
         return children.get(groupPosition).size();
     }
 
@@ -156,7 +157,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
+    public View getRealChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
 
         // Group内の最後の子要素に対してはボタンの行とする
         if (isLastChild) {

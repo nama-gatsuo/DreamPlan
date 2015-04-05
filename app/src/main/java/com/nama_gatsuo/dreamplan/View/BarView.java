@@ -117,5 +117,4 @@ public class BarView extends View {
 
         setMeasuredDimension(widthSize, heightSize);
     }
-
 }

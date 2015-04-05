@@ -96,6 +96,7 @@
     <orderEntry type="library" exported="" name="joda-time-2.7-no-tzdb" level="project" />
     <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
     <orderEntry type="module" module-name="tablefixheaders" exported="" />
+    <orderEntry type="module" module-name="AnimatedExpandableListView" exported="" />
     <orderEntry type="module" module-name="paralloid" exported="" />
   </component>
 </module>

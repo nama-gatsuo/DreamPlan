@@ -50,7 +50,6 @@ public class CalendarView extends View {
 
         mFillPaint = new Paint();
         mFillPaint.setColor(getResources().getColor(R.color.status_2));
-
     }
 
     public void setRange(DateTime minDate, DateTime maxDate) {
@@ -74,7 +73,7 @@ public class CalendarView extends View {
 
             // 月を描画
             if (dayOfMonth == 1) {
-                canvas.drawText(String.valueOf(minDate.getMonthOfYear()), dx*i+10, height/2-10, mCharPaint);
+                canvas.drawText(String.valueOf(minDate.getMonthOfYear()), dx*i+3*scale, height/2-3*scale, mCharPaint);
                 canvas.drawLine(dx*i, 0, dx*i, height/2, mLinePaint);
             }
 

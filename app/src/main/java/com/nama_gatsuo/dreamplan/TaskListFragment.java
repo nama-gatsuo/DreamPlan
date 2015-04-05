@@ -12,6 +12,7 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.AddFloatingActionButton;
+import com.idunnololz.widgets.AnimatedExpandableListView;
 import com.nama_gatsuo.dreamplan.dao.SubTaskDao;
 import com.nama_gatsuo.dreamplan.dao.TaskDao;
 import com.nama_gatsuo.dreamplan.model.SubTask;
@@ -28,6 +29,8 @@ public class TaskListFragment extends Fragment {
     private List<Task> groups = null;
     private List<List<SubTask>> children = null;
     private MyExpandableListAdapter adapter;
+
+    AnimatedExpandableListView elv;
 
     @Override
     public void onAttach(Activity activity) {
@@ -48,7 +51,7 @@ public class TaskListFragment extends Fragment {
         SubTaskDao subTaskDao = new SubTaskDao(db);
 
         // ExpandableListViewの用意
-        ExpandableListView elv = (ExpandableListView) view.findViewById(R.id.elv);
+        elv = (AnimatedExpandableListView) view.findViewById(R.id.elv);
         elv.setVerticalScrollBarEnabled(false);
         elv.setDivider(null);
         elv.setSelector(R.color.transparent);
@@ -75,6 +78,25 @@ public class TaskListFragment extends Fragment {
 
         // Indicationのアイコンを変更
         // elv.setGroupIndicator();
+
+        // In order to show animations, we need to use a custom click handler
+        // for our ExpandableListView.
+        elv.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                // We call collapseGroupWithAnimation(int) and
+                // expandGroupWithAnimation(int) to animate group
+                // expansion/collapse.
+                if (elv.isGroupExpanded(groupPosition)) {
+                    elv.collapseGroupWithAnimation(groupPosition);
+                } else {
+                    elv.expandGroupWithAnimation(groupPosition);
+                }
+                return true;
+            }
+
+        });
 
         // リストを開く
         int groupCount = adapter.getGroupCount();

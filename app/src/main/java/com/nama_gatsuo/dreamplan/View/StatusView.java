@@ -112,6 +112,10 @@ public class StatusView extends View {
                     mFillPaint.setColor(getResources().getColor(R.color.status_9));
                     mCharPaint.setColor(Color.WHITE);
                     break;
+                case 10:
+                    // チェックマークを描画
+                    canvas.drawLines(ps, mPathPaint);
+                    break;
             }
             canvas.drawCircle(centerX, centerY, radius, mFillPaint);
             canvas.drawText(String.valueOf(status * 10) + "%", 15.0f * scale, 36.0f * scale, mCharPaint);

@@ -13,17 +13,18 @@ public class ProjectDao {
     public static final String TABLE_NAME = "project";
 
     // DBカラム名
-    static final String COLUMN_projectID = "projectID";
-    static final String COLUMN_projectName = "project_name";
-    static final String COLUMN_projectDescription = "project_description";
-    static final String COLUMN_projectStatus = "project_status";
-    static final String COLUMN_projectStartDate = "project_startDate";
-    static final String COLUMN_projectEndDate = "project_endDate";
+    public static final String COLUMN_projectID = "projectID";
+    public static final String COLUMN_projectName = "project_name";
+    public static final String COLUMN_projectDescription = "project_description";
+    public static final String COLUMN_projectStatus = "project_status";
+    public static final String COLUMN_projectStartDate = "project_startDate";
+    public static final String COLUMN_projectEndDate = "project_endDate";
+    public static final String COLUMN_imagePath = "project_imagePath";
 
     // カラム名の配列を静的メンバとして用意
     static final String[] COLUMNS = {
             COLUMN_projectID, COLUMN_projectName, COLUMN_projectDescription,
-            COLUMN_projectStatus, COLUMN_projectStartDate, COLUMN_projectEndDate
+            COLUMN_projectStatus, COLUMN_projectStartDate, COLUMN_projectEndDate, COLUMN_imagePath
     };
 
     // CREATE TABLE文を静的メンバとして用意
@@ -33,7 +34,8 @@ public class ProjectDao {
             + COLUMN_projectDescription + " TEXT, "
             + COLUMN_projectStatus + " INTEGER, "
             + COLUMN_projectStartDate + " INTEGER, "
-            + COLUMN_projectEndDate + " INTEGER)";
+            + COLUMN_projectEndDate + " INTEGER"
+            + COLUMN_imagePath + "TEXT)";
 
     SQLiteDatabase db;
 
@@ -56,6 +58,7 @@ public class ProjectDao {
             pj.setStatus(c.getInt(c.getColumnIndex(COLUMN_projectStatus)));
             pj.setStartDate(c.getLong(c.getColumnIndex(COLUMN_projectStartDate)));
             pj.setEndDate(c.getLong(c.getColumnIndex(COLUMN_projectEndDate)));
+            pj.setImagePath(c.getString(c.getColumnIndex(COLUMN_imagePath)));
             list.add(pj);
         }
         // Cursorのclose
@@ -79,6 +82,7 @@ public class ProjectDao {
             pj.setStatus(c.getInt(c.getColumnIndex(COLUMN_projectStatus)));
             pj.setStartDate(c.getLong(c.getColumnIndex(COLUMN_projectStartDate)));
             pj.setEndDate(c.getLong(c.getColumnIndex(COLUMN_projectEndDate)));
+            pj.setImagePath(c.getString(c.getColumnIndex(COLUMN_imagePath)));
         }
         // Cursorのclose
         c.close();
@@ -92,11 +96,13 @@ public class ProjectDao {
         }
         // 値設定
         ContentValues values = new ContentValues();
+
         values.put(COLUMN_projectName, pj.getName());
         values.put(COLUMN_projectDescription, pj.getDescription());
         values.put(COLUMN_projectStatus, pj.getStatus());
         values.put(COLUMN_projectStartDate, pj.getStartDate());
         values.put(COLUMN_projectEndDate, pj.getEndDate());
+        values.put(COLUMN_imagePath, pj.getImagePath());
 
         // 同じProjectIDが存在するなら更新
         if (exists(pj.getProjectID())) {
@@ -143,7 +149,7 @@ public class ProjectDao {
     }
 
     // データの存在をチェックするメソッド
-    public boolean exists() {
+        public boolean exists() {
         return findAll().size() > 0;
     }
 

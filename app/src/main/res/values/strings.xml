@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">DreamPlan</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_task">TaskActivity</string>
     <string name="title_activity_create_task">CreateTaskActivity</string>
@@ -22,8 +21,13 @@
         <item id="10">DONE</item>
     </string-array>
 
+    <string-array name="spnPjStatus_items">
+        <item id="0">Not yet started</item>
+        <item id="1">In progress</item>
+        <item id="2">Completed!</item>
+    </string-array>
+
     <string name="spnStatus_prompt">選択する</string>
-    <string name="title_activity_sample">SampleActivity</string>
     <string name="title_activity_subtask_edit">SubtaskEditActivity</string>
     <string name="title_activity_task_gantt">TaskGanttActivity</string>
     <string name="title_activity_main">MainActivity</string>

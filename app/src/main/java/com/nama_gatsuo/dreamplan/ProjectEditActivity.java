@@ -1,14 +1,19 @@
 package com.nama_gatsuo.dreamplan;
 
+import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -18,9 +23,12 @@ import com.nama_gatsuo.dreamplan.dao.ProjectDao;
 import com.nama_gatsuo.dreamplan.dao.SubTaskDao;
 import com.nama_gatsuo.dreamplan.dao.TaskDao;
 import com.nama_gatsuo.dreamplan.model.Project;
-import com.nama_gatsuo.dreamplan.model.Task;
 
 import org.joda.time.DateTime;
+
+import java.io.File;
+
+import uk.co.chrisjenx.paralloid.views.ParallaxScrollView;
 
 
 public class ProjectEditActivity extends FragmentActivity {
@@ -32,58 +40,118 @@ public class ProjectEditActivity extends FragmentActivity {
     private SQLiteDatabase db;
     private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
 
+    static final int REQUEST_PICK_CONTENT = 0;
+    static final int REQUEST_KITKAT_PICK_CONTENT = 1;
+
+    private String imagePath;
+
+    ViewHolder holder;
+
+    private class ViewHolder {
+        ImageView imageView;
+        EditText pjName;
+        DateView startDate;
+        DateView endDate;
+        Spinner status;
+        EditText description;
+
+        ParallaxScrollView scrollView;
+        View change_pic;
+
+        public ViewHolder() {
+            this.imageView = (ImageView) findViewById(R.id.image_view);
+            this.pjName = (EditText)findViewById(R.id.pj_edit_name);
+            this.startDate = (DateView)findViewById(R.id.pj_edit_startDate);
+            this.endDate = (DateView)findViewById(R.id.pj_edit_endDate);
+            this.status = (Spinner)findViewById(R.id.pj_edit_status);
+            this.description = (EditText)findViewById(R.id.pj_edit_description);
+
+            this.scrollView = (ParallaxScrollView) findViewById(R.id.scroll_view);
+            this.change_pic = findViewById(R.id.change_pic);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_edit);
 
-        // IntentでのProjectの受け取り
+        holder = new ViewHolder();
+
+        // Get the Parallax View
+        holder.scrollView.parallaxViewBy(holder.imageView, 0.5f);
+
+        // get Project from Intent
         project = (Project)getIntent().getSerializableExtra("Project");
 
-        EditText pjName = (EditText)findViewById(R.id.pj_edit_name);
-        final DateView startDate = (DateView)findViewById(R.id.pj_edit_startDate);
-        final DateView endDate = (DateView)findViewById(R.id.pj_edit_endDate);
-        Spinner status = (Spinner)findViewById(R.id.pj_edit_status);
-        EditText description = (EditText)findViewById(R.id.pj_edit_description);
-
-        // Database接続
+        // Connect Database
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         db = dbHelper.getWritableDatabase();
         projectDao = new ProjectDao(db);
         taskDao = new TaskDao(db);
         subTaskDao = new SubTaskDao(db);
 
-        // Taskが既に存在していればViewに値をセット
+        // Projectが既に存在していればViewに値をセット
         if(projectDao.exists(project.getProjectID())) {
-            pjName.setText(project.getName());
-            startDate.setDate(project.getStartDate());
-            endDate.setDate(project.getEndDate());
-            status.setSelection(project.getStatus());
-            description.setText(project.getDescription());
+            holder.pjName.setText(project.getName());
+            holder.startDate.setDate(project.getStartDate());
+            holder.endDate.setDate(project.getEndDate());
+            holder.status.setSelection(project.getStatus());
+            holder.description.setText(project.getDescription());
+
+            imagePath = project.getImagePath();
+            if (imagePath != null) {
+                Uri uri = Uri.parse(imagePath);
+                try {
+                    getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    holder.imageView.setImageBitmap(bmp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
+        holder.change_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    intent.setType("image/*");
+                    startActivityForResult(intent, REQUEST_KITKAT_PICK_CONTENT);
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    intent.setType("image/*");
+                    startActivityForResult(intent, REQUEST_PICK_CONTENT);
+                }
+
+            }
+        });
+
         // startDateにbetterpickerのClickListnerを設定
-        startDate.setOnClickListener(new View.OnClickListener() {
+        holder.startDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
                 DateTime now = DateTime.now().withTimeAtStartOfDay();
                 CalendarDatePickerDialog cdpd = CalendarDatePickerDialog
-                        .newInstance(startDate, now.getYear(), now.getMonthOfYear() - 1,
+                        .newInstance(holder.startDate, now.getYear(), now.getMonthOfYear() - 1,
                                 now.getDayOfMonth());
                 cdpd.show(fm, FRAG_TAG_DATE_PICKER);
             }
         });
 
         // endDateにbetterpickerのClickListnerを設定
-        endDate.setOnClickListener(new View.OnClickListener() {
+        holder.endDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
                 DateTime now = DateTime.now().withTimeAtStartOfDay();
                 CalendarDatePickerDialog calendarDatePickerDialog = CalendarDatePickerDialog
-                        .newInstance(endDate, now.getYear(), now.getMonthOfYear() - 1,
+                        .newInstance(holder.endDate, now.getYear(), now.getMonthOfYear() - 1,
                                 now.getDayOfMonth());
                 calendarDatePickerDialog.show(fm, FRAG_TAG_DATE_PICKER);
             }
@@ -93,11 +161,12 @@ public class ProjectEditActivity extends FragmentActivity {
     // Save Button
     public void onClickSave(View v) {
         try {
-            project.setName(((EditText) findViewById(R.id.pj_edit_name)).getText().toString());
-            project.setDescription(((EditText) findViewById(R.id.pj_edit_description)).getText().toString());
-            project.setStatus(((Spinner) findViewById(R.id.pj_edit_status)).getSelectedItemPosition());
-            project.setStartDate(((DateView) findViewById(R.id.pj_edit_startDate)).getDate());
-            project.setEndDate(((DateView) findViewById(R.id.pj_edit_endDate)).getDate());
+            project.setName(holder.pjName.getText().toString());
+            project.setDescription(holder.description.getText().toString());
+            project.setStatus(holder.status.getSelectedItemPosition());
+            project.setStartDate(holder.startDate.getDate());
+            project.setEndDate(holder.endDate.getDate());
+            project.setImagePath(imagePath);
 
             if (projectDao.save(project) < 0) {
                 throw new Exception("could not save Task");
@@ -135,8 +204,38 @@ public class ProjectEditActivity extends FragmentActivity {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onDestroy() {
+        super.onDestroy();
         db.close();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (data != null) {
+            Uri uri = data.getData();
+            Bitmap bmp;
+            imagePath = uri.toString();
+            if (requestCode == REQUEST_KITKAT_PICK_CONTENT) {
+                // Check for the freshest data.
+                getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                try {
+                    bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    holder.imageView.setImageBitmap(bmp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (requestCode == REQUEST_PICK_CONTENT) {
+                String[] columns = { MediaStore.Images.Media.DATA };
+                Cursor c = getContentResolver().query(uri, columns, null, null, null);
+                c.moveToFirst();
+                int index = c.getColumnIndex(MediaStore.Images.Media.DATA);
+                String path = c.getString(index);
+                bmp = BitmapFactory.decodeFile(path);
+                holder.imageView.setImageBitmap(bmp);
+            }
+        }
     }
 }

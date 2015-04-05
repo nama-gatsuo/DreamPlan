@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary_dark">#1B5E20</color>
-    <color name="primary">#43A047</color>
+    <color name="primary_dark">#283e53</color>
+    <color name="primary">#324e68</color>
     <color name="accent">#E91E63</color>
     <color name="accent_dark">#C2185B</color>
-    <color name="background">#F2F2F2</color>
+    <color name="background">#eaedef</color>
     <color name="list_item_bg">#FFFFFF</color>
-    <color name="list_button_bg">#969696</color>
-    <color name="list_item_shadow">#CCCCCC</color>
+    <color name="list_button_bg">#8494a4</color>
+    <color name="list_item_shadow">#98a6b3</color>
 
     <color name="status_0">#FFFFFF</color>
-    <color name="status_1">#E8F5E9</color>
-    <color name="status_2">#C8E6C9</color>
-    <color name="status_3">#A5D6A7</color>
-    <color name="status_4">#81C784</color>
-    <color name="status_5">#66BB6A</color>
-    <color name="status_6">#4CAF50</color>
-    <color name="status_7">#43A047</color>
-    <color name="status_8">#388E3C</color>
-    <color name="status_9">#2E7D32</color>
+    <color name="status_1">#eaedef</color>
+    <color name="status_2">#c1c9d1</color>
+    <color name="status_3">#adb8c2</color>
+    <color name="status_4">#98a6b3</color>
+    <color name="status_5">#8494a4</color>
+    <color name="status_6">#6f8395</color>
+    <color name="status_7">#5a7186</color>
+    <color name="status_8">#465f77</color>
+    <color name="status_9">#324e68</color>
     <color name="status_10">#FFFFFF</color>
     <color name="status_char_black">#000000</color>
 </resources>

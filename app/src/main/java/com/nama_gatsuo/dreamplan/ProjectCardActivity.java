@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.nama_gatsuo.dreamplan.View.ProjectStatusView;
 import com.nama_gatsuo.dreamplan.dao.ProjectDao;
 import com.nama_gatsuo.dreamplan.model.Project;
 
@@ -73,11 +77,13 @@ public class ProjectCardActivity extends Activity {
 
         private class ViewHolder {
             ImageView pj_image;
+            ProjectStatusView pj_status;
             TextView pj_name ;
             TextView pj_endDate;
 
             public ViewHolder(View view) {
                 this.pj_image = (ImageView) view.findViewById(R.id.pj_image);
+                this.pj_status = (ProjectStatusView) view.findViewById(R.id.pj_status);
                 this.pj_name = (TextView) view.findViewById(R.id.pj_name);
                 this.pj_endDate = (TextView) view.findViewById(R.id.pj_endDate);
             }
@@ -95,6 +101,7 @@ public class ProjectCardActivity extends Activity {
             // Inflate Project Card View
             final Project _project = projects.get(position);
 
+            // Set ViewHolder if null
             ViewHolder holder;
             if (convertView == null || convertView.getTag() == null) {
                 convertView = getLayoutInflater().inflate(resource, null);
@@ -122,8 +129,22 @@ public class ProjectCardActivity extends Activity {
                 holder.pj_name.setText("Create Plan");
             } else {
                 // Existing Project Block
-                holder.pj_image.setImageResource(R.drawable.image);
-                holder.pj_image.setOnClickListener(new View.OnClickListener() {
+                String imagePath = _project.getImagePath();
+
+                // Set a project image
+                if (imagePath != null) {
+                    Uri uri = Uri.parse(imagePath);
+                    try {
+                        getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                        holder.pj_image.setImageBitmap(bmp);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                holder.pj_status.setStatus(_project.getStatus());
+                holder.pj_status.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent i = new Intent(v.getContext(), ShowProjectActivity.class);

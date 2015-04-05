@@ -10,7 +10,7 @@ import com.nama_gatsuo.dreamplan.dao.TaskDao;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "data";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Constructor
     public DatabaseHelper(Context context) {
@@ -28,6 +28,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if( oldVersion == 1 && newVersion == 2 ){
             db.execSQL(ProjectDao.CREATE_SQL);
+        }
+        if( oldVersion == 2 && newVersion == 3) {
+            db.execSQL("alter table " + ProjectDao.TABLE_NAME + " add " + ProjectDao.COLUMN_imagePath + " TEXT");
         }
     }
 }

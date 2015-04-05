@@ -12,6 +12,7 @@ public class Project implements Serializable {
     private int status;
     private long startDate;
     private long endDate;
+    private String imagePath;
 
     // メンバへのAccessor
     public void setProjectID(int projectID) { this.projectID = projectID; }
@@ -31,6 +32,9 @@ public class Project implements Serializable {
 
     public void setEndDate(long endDate) { this.endDate = endDate; }
     public long getEndDate() { return endDate; }
+
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
+    public String getImagePath() { return imagePath; }
 
     // validation
     public boolean validate() {

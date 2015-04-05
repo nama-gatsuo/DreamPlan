@@ -6,12 +6,22 @@
     android:paddingTop="16dp"
     android:elevation="8dp">
 
-    <ImageView
-        android:id="@+id/pj_image"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop" />
+        android:layout_height="200dp">
 
+        <ImageView
+            android:id="@+id/pj_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop" />
+
+        <com.nama_gatsuo.dreamplan.View.ProjectStatusView
+            android:id="@+id/pj_status"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+    </FrameLayout>
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"

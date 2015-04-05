@@ -52,7 +52,6 @@ public class ScaleView extends View {
         this.dx = dx;
     }
 
-
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(Color.rgb(255, 255, 255));
