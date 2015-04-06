@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -21,7 +22,7 @@ import com.nama_gatsuo.dreamplan.model.Task;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
-public class TaskEditActivity extends FragmentActivity {
+public class TaskEditActivity extends ActionBarActivity {
 
     private TaskDao taskDao;
     private SubTaskDao subTaskDao;

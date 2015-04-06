@@ -46,7 +46,8 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
 
     </RelativeLayout>
     <View

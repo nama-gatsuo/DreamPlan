@@ -34,8 +34,8 @@ public class ProjectDao {
             + COLUMN_projectDescription + " TEXT, "
             + COLUMN_projectStatus + " INTEGER, "
             + COLUMN_projectStartDate + " INTEGER, "
-            + COLUMN_projectEndDate + " INTEGER"
-            + COLUMN_imagePath + "TEXT)";
+            + COLUMN_projectEndDate + " INTEGER, "
+            + COLUMN_imagePath + " TEXT)";
 
     SQLiteDatabase db;
 

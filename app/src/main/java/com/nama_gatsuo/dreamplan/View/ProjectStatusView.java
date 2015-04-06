@@ -4,17 +4,11 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.nama_gatsuo.dreamplan.R;
 
-import org.joda.time.DateTime;
-
-/**
- * Created by nagamatsuayumu on 15/04/03.
- */
 public class ProjectStatusView extends View {
 
     private int status;

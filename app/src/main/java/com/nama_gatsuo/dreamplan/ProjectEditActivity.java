@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,7 +32,7 @@ import java.io.File;
 import uk.co.chrisjenx.paralloid.views.ParallaxScrollView;
 
 
-public class ProjectEditActivity extends FragmentActivity {
+public class ProjectEditActivity extends ActionBarActivity {
 
     private ProjectDao projectDao;
     private TaskDao taskDao;

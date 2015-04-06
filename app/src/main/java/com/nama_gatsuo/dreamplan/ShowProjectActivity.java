@@ -1,17 +1,14 @@
 package com.nama_gatsuo.dreamplan;
 
-import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.Configuration;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 
-import com.nama_gatsuo.dreamplan.dao.ProjectDao;
 import com.nama_gatsuo.dreamplan.model.Project;
 
-public class ShowProjectActivity extends FragmentActivity {
+public class ShowProjectActivity extends ActionBarActivity {
 
     private Project project;
     private FragmentManager manager;
@@ -44,8 +41,7 @@ public class ShowProjectActivity extends FragmentActivity {
             isPortrait = true;
         } else if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             // ActionBarを非表示にする
-            ActionBar actionBar = getActionBar();
-            actionBar.hide();
+            getSupportActionBar().hide();
 
             // TaskGanttFragmentを表示
             TaskGanttFragment tgf = new TaskGanttFragment();

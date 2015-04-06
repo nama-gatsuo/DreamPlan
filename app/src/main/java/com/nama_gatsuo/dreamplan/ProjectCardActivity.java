@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +27,7 @@ import org.joda.time.format.DateTimeFormat;
 
 import java.util.List;
 
-public class ProjectCardActivity extends Activity {
+public class ProjectCardActivity extends ActionBarActivity {
     List<Project> projects;
     private SQLiteDatabase db;
     private ProjectDao projectDao;
