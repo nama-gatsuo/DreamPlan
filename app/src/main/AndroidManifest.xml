@@ -25,7 +25,7 @@
         </activity>
         <activity
             android:name=".TaskEditActivity"
-            android:label="@string/title_activity_task" >
+            android:label="@string/title_activity_task_edit" >
         </activity>
         <activity
             android:name=".SubtaskEditActivity"
