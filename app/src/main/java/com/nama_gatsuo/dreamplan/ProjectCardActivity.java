@@ -3,9 +3,12 @@ package com.nama_gatsuo.dreamplan;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
@@ -48,6 +51,7 @@ public class ProjectCardActivity extends ActionBarActivity {
         ListView lv = (ListView) findViewById(R.id.project_list);
         ProjectCardAdapter adapter = new ProjectCardAdapter(this, R.layout.project_line_item, projects);
         lv.setAdapter(adapter);
+        lv.setVerticalScrollBarEnabled(false);
     }
 
     @Override
@@ -114,7 +118,7 @@ public class ProjectCardActivity extends ActionBarActivity {
 
             if (position == projects.size() - 1) {
                 // Create New Project Block
-                convertView.setOnClickListener(new View.OnClickListener() {
+                holder.pj_status.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent i = new Intent(v.getContext(), ProjectEditActivity.class);
@@ -134,14 +138,27 @@ public class ProjectCardActivity extends ActionBarActivity {
 
                 // Set a project image
                 if (imagePath != null) {
+                    Bitmap bmp;
                     Uri uri = Uri.parse(imagePath);
-                    try {
-                        getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        try {
+                            getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                            holder.pj_image.setImageBitmap(bmp);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        String[] columns = { MediaStore.Images.Media.DATA };
+                        Cursor c = getContentResolver().query(uri, columns, null, null, null);
+                        c.moveToFirst();
+                        int index = c.getColumnIndex(MediaStore.Images.Media.DATA);
+                        String path = c.getString(index);
+                        bmp = BitmapFactory.decodeFile(path);
                         holder.pj_image.setImageBitmap(bmp);
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
+                } else {
+                    holder.pj_image.setImageResource(R.drawable.image);
                 }
 
                 holder.pj_status.setStatus(_project.getStatus());
@@ -154,15 +171,17 @@ public class ProjectCardActivity extends ActionBarActivity {
                     }
                 });
 
-                holder.pj_name.setText(_project.getName());
-                holder.pj_name.setOnClickListener(new View.OnClickListener() {
+                holder.pj_status.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public boolean onLongClick(View v) {
                         Intent i = new Intent(v.getContext(), ProjectEditActivity.class);
                         i.putExtra("Project", _project);
                         v.getContext().startActivity(i);
+                        return true;
                     }
                 });
+
+                holder.pj_name.setText(_project.getName());
 
                 DateTime edt = new DateTime().withMillis(_project.getEndDate());
                 holder.pj_endDate.setText(edt.toString(DateTimeFormat.forPattern("MM/dd")));

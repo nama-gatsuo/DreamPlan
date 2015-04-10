@@ -39,7 +39,7 @@ public class Project implements Serializable {
     // validation
     public boolean validate() {
         // 文字数制限
-        if (name.length() > 15) { return false; }
+        if (name.length() > 21) { return false; }
         if (description.length() > 150) { return false; }
 
         // 負の数ははじく

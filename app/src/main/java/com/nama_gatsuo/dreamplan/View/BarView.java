@@ -55,10 +55,10 @@ public class BarView extends View {
         setWillNotDraw(false);
 
         mFillPaint1 = new Paint();
-        mFillPaint1.setColor(Color.GRAY);
+        mFillPaint1.setColor(getResources().getColor(R.color.accent));
 
         mFillPaint2 = new Paint();
-        mFillPaint2.setColor(getResources().getColor(R.color.accent));
+        mFillPaint2.setColor(getResources().getColor(R.color.primary));
 
         shadow = new Paint();
         shadow.setAntiAlias(true);

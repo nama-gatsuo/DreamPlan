@@ -90,11 +90,11 @@ public class StatusView extends View {
                     break;
                 case 4:
                     mFillPaint.setColor(getResources().getColor(R.color.status_4));
-                    mCharPaint.setColor(Color.BLACK);
+                    mCharPaint.setColor(Color.WHITE);
                     break;
                 case 5:
                     mFillPaint.setColor(getResources().getColor(R.color.status_5));
-                    mCharPaint.setColor(Color.BLACK);
+                    mCharPaint.setColor(Color.WHITE);
                     break;
                 case 6:
                     mFillPaint.setColor(getResources().getColor(R.color.status_6));

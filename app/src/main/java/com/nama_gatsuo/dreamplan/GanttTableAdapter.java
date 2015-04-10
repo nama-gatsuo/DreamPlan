@@ -285,7 +285,7 @@ public class GanttTableAdapter extends BaseTableAdapter {
                 height = Math.round(32 * scale);
                 break;
             case 0:
-                int listHeight = Math.round((ny * (dy + scale)));
+                int listHeight = Math.round((ny * (dy + 1)));
 
                 WindowManager wm = activity.getWindowManager();
                 Display display = wm.getDefaultDisplay();

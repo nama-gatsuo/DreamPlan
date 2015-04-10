@@ -12,7 +12,7 @@
         android:layout_weight="1"
         android:textColor="#FFFFFF"
         android:gravity="center_vertical|left"
-        android:textSize="14dp"
+        android:textSize="12sp"
         android:paddingLeft="10dp" />
 
     <View

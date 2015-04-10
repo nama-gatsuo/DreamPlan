@@ -39,7 +39,7 @@ public class ScaleView extends View {
         mLinePaint.setColor(Color.GRAY);
 
         mFillPaint = new Paint();
-        mFillPaint.setColor(getResources().getColor(R.color.status_2));
+        mFillPaint.setColor(getResources().getColor(R.color.scale_dayoff));
     }
 
     public void setRange(DateTime minDate, DateTime maxDate) {

@@ -1,10 +1,12 @@
 package com.nama_gatsuo.dreamplan;
 
+import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 
 import com.nama_gatsuo.dreamplan.model.Project;
 
@@ -26,6 +28,11 @@ public class ShowProjectActivity extends ActionBarActivity {
 
         // Fragment表示のための準備
         manager = getFragmentManager();
+
+        // Set ActionBar
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(project.getName());
     }
 
     @Override
@@ -77,5 +84,16 @@ public class ShowProjectActivity extends ActionBarActivity {
         } else {
             return this.project;
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

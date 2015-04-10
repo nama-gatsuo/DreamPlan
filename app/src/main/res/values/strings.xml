@@ -31,4 +31,5 @@
     <string name="title_activity_subtask_edit">Edit Subtask</string>
     <string name="title_activity_task_gantt">TaskGanttActivity</string>
 
+    <string name="empty_text">No items found.\nSqueeze out your tasks!</string>
 </resources>

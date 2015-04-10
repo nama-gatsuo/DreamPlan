@@ -10,15 +10,17 @@
     <color name="list_item_shadow">#98a6b3</color>
 
     <color name="status_0">#FFFFFF</color>
-    <color name="status_1">#eaedef</color>
-    <color name="status_2">#c1c9d1</color>
-    <color name="status_3">#adb8c2</color>
-    <color name="status_4">#98a6b3</color>
-    <color name="status_5">#8494a4</color>
-    <color name="status_6">#6f8395</color>
-    <color name="status_7">#5a7186</color>
-    <color name="status_8">#465f77</color>
-    <color name="status_9">#324e68</color>
+    <color name="status_1">#fce8ef</color>
+    <color name="status_2">#f8bbd0</color>
+    <color name="status_3">#f6a5c0</color>
+    <color name="status_4">#f48eb1</color>
+    <color name="status_5">#f178a1</color>
+    <color name="status_6">#ef6191</color>
+    <color name="status_7">#ed4a82</color>
+    <color name="status_8">#eb3472</color>
+    <color name="status_9">#e91e63</color>
     <color name="status_10">#FFFFFF</color>
     <color name="status_char_black">#000000</color>
+
+    <color name="scale_dayoff">#d6dbe0</color>
 </resources>

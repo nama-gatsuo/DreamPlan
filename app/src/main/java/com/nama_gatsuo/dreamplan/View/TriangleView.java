@@ -14,12 +14,11 @@ import com.nama_gatsuo.dreamplan.R;
 public class TriangleView extends View {
     private float centerX = 8.0f;
     private float centerY = 9.0f;
-    private int dis = 8; // 原点から各頂点への距離
+    private int dis = 6; // 原点から各頂点への距離
     private int[] degs = { 0, 120, 240 };
     private float scale;
     private final Paint mFillPaint;
     private final Path mPath = new Path();
-
 
     // Constructor
     public TriangleView(Context context) {
@@ -39,8 +38,7 @@ public class TriangleView extends View {
 
         mFillPaint = new Paint();
         mFillPaint.setAntiAlias(true);
-        mFillPaint.setColor(getResources().getColor(R.color.accent));
-        mFillPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        mFillPaint.setColor(getResources().getColor(R.color.primary));
     }
 
     @Override

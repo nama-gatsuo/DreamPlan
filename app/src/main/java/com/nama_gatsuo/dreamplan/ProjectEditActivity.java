@@ -103,13 +103,24 @@ public class ProjectEditActivity extends ActionBarActivity {
 
             imagePath = project.getImagePath();
             if (imagePath != null) {
+                Bitmap bmp;
                 Uri uri = Uri.parse(imagePath);
-                try {
-                    getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    try {
+                        getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                        holder.imageView.setImageBitmap(bmp);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    String[] columns = { MediaStore.Images.Media.DATA };
+                    Cursor c = getContentResolver().query(uri, columns, null, null, null);
+                    c.moveToFirst();
+                    int index = c.getColumnIndex(MediaStore.Images.Media.DATA);
+                    String path = c.getString(index);
+                    bmp = BitmapFactory.decodeFile(path);
                     holder.imageView.setImageBitmap(bmp);
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
         }

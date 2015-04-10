@@ -124,16 +124,6 @@ public class MyExpandableListAdapter extends AnimatedExpandableListView.Animated
         // 名前のセット
         TextView task_name = (TextView)holder.getView(R.id.task_name);
         task_name.setText(task.getName());
-        task_name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Task編集
-                Intent i = new Intent(v.getContext(), TaskEditActivity.class);
-
-                i.putExtra("Task", task);
-                v.getContext().startActivity(i);
-            }
-        });
 
         // 開始日のセット
         TextView start_date = (TextView)holder.getView(R.id.task_startDate);
@@ -149,9 +139,6 @@ public class MyExpandableListAdapter extends AnimatedExpandableListView.Animated
         StatusView sv = (StatusView)holder.getView(R.id.task_status);
         sv.invalidate();
         sv.setStatus(task.getStatus());
-
-        // アニメーションの開始
-        // convertView.startAnimation(holder.anim);
 
         return convertView;
     }
@@ -211,21 +198,11 @@ public class MyExpandableListAdapter extends AnimatedExpandableListView.Animated
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            final SubTask subTask = children.get(groupPosition).get(childPosition);
+            SubTask subTask = getChild(groupPosition, childPosition);
 
             // 名前のセット
             TextView subtask_name = (TextView)holder.getView(R.id.subTask_name);
             subtask_name.setText(subTask.getName());
-            subtask_name.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // SubTask編集
-                    Intent i = new Intent(v.getContext(), SubtaskEditActivity.class);
-
-                    i.putExtra("SubTask", subTask);
-                    v.getContext().startActivity(i);
-                }
-            });
 
             // 開始日のセット
             TextView start_date = (TextView)holder.getView(R.id.subTask_startDate);
@@ -242,15 +219,12 @@ public class MyExpandableListAdapter extends AnimatedExpandableListView.Animated
             sv.invalidate();
             sv.setStatus(subTask.getStatus());
 
-            // アニメーションの開始
-            // convertView.startAnimation(holder.anim);
-
             return convertView;
         }
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 }

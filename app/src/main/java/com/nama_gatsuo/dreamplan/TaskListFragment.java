@@ -8,6 +8,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -76,8 +77,36 @@ public class TaskListFragment extends Fragment {
         adapter = new MyExpandableListAdapter(parent, groups, children);
         elv.setAdapter(adapter);
 
-        // Indicationのアイコンを変更
-        // elv.setGroupIndicator();
+        // LongClick to edit
+        elv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+                    int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+                    int childPosition = ExpandableListView.getPackedPositionChild(id);
+
+                    SubTask subTask = adapter.getChild(groupPosition, childPosition);
+
+                    Intent i = new Intent(parent.getContext(), SubtaskEditActivity.class);
+
+                    i.putExtra("SubTask", subTask);
+                    parent.getContext().startActivity(i);
+
+                    return true;
+                } else if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
+                    int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+
+                    Task task = adapter.getGroup(groupPosition);
+
+                    Intent i = new Intent(parent.getContext(), TaskEditActivity.class);
+
+                    i.putExtra("Task", task);
+                    parent.getContext().startActivity(i);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         // In order to show animations, we need to use a custom click handler
         // for our ExpandableListView.

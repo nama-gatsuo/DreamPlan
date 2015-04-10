@@ -7,5 +7,5 @@
     android:textSize="12sp"
     android:gravity="center_vertical"
     android:background="@drawable/bg_table_list_subtask"
-    android:paddingLeft="30dp"
+    android:paddingLeft="20dp"
     android:layout_marginLeft="10dp"/>

@@ -16,16 +16,14 @@
             android:id="@+id/subTask_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="subtask sample"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="10dp" />
 
         <TextView
             android:id="@+id/subTask_startDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="yyyy/MM/dd"
             android:textSize="12sp"
             android:layout_alignLeft="@id/subTask_name"
             android:layout_marginRight="2dp"
@@ -43,7 +41,6 @@
             android:id="@+id/subTask_endDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="yyyy/MM/dd"
             android:textSize="12sp"
             android:layout_toRightOf="@id/stv"
             android:layout_alignTop="@id/stv" />
@@ -61,7 +58,7 @@
     <!-- 影部分 -->
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/list_item_shadow" />
+        android:layout_height="1px"
+        android:background="@color/primary_dark" />
 
 </LinearLayout>

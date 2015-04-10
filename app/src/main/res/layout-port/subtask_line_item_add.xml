@@ -9,15 +9,10 @@
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/list_button_bg"
-        android:text="add"
+        android:layout_height="32dp"
+        android:background="@color/primary"
+        android:text="+ Subtask"
         android:textSize="18sp"
         android:textColor="#ffffff" />
 
-    <!-- 影部分 -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/list_item_shadow" />
 </LinearLayout>
