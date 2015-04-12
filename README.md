@@ -13,12 +13,12 @@ Required minimun API: 14
 This app contains the artifacts that have been distributed by the license of Apache License, Version 2.0 .
 Thanks to great contributors for my using those awesome libraries in this app.
 
-* android-switch-backport https://github.com/BoD/android-switch-backport
-* better-pikckers https://github.com/derekbrameyer/android-betterpickers
-* android-floating-action-button https://github.com/futuresimple/android-floating-action-button
-* joda-time-android https://github.com/dlew/joda-time-android
-* Paralloid https://github.com/chrisjenx/Paralloid
-* TableFixHeaders https://github.com/InQBarna/TableFixHeaders
+* [android-switch-backport](https://github.com/BoD/android-switch-backport)
+* [better-pikckers](https://github.com/derekbrameyer/android-betterpickers)
+* [android-floating-action-button](https://github.com/futuresimple/android-floating-action-button)
+* [joda-time-android](https://github.com/dlew/joda-time-android)
+* [Paralloid](https://github.com/chrisjenx/Paralloid)
+* [TableFixHeaders](https://github.com/InQBarna/TableFixHeaders)
 
 ## ScreenShot
 
@@ -26,7 +26,7 @@ Thanks to great contributors for my using those awesome libraries in this app.
 ![screenshot 2](https://github.com/nama-gatsuo/DreamPlan/blob/master/web/4.png "screenshot 2")
 
 ## License
-
+[License](https://github.com/nama-gatsuo/DreamPlan/blob/master/LICENSE.txt)
 
 ## Author
 [nama-gatsuo](https://github.com/nama-gatsuo)
