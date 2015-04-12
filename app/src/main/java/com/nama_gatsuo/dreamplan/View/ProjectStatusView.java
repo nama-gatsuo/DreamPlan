@@ -64,7 +64,7 @@ public class ProjectStatusView extends View {
                 text =  "In progress";
                 break;
             case 2:
-                bgPaint.setColor(Color.argb(112, 233, 30, 99));
+                bgPaint.setColor(Color.argb(112, 255, 113, 128));
                 textBgPaint.setColor(getResources().getColor(R.color.accent));
                 text = "Comleted!";
                 canvas.drawRect(0, 0, getWidth(), getHeight(), bgPaint);

@@ -1,5 +1,7 @@
 package com.nama_gatsuo.dreamplan;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -92,12 +94,12 @@ public class SubtaskEditActivity extends ActionBarActivity {
             if (subTaskDao.save(subTask) < 0) {
                 throw new Exception("could not save Task");
             }
-            Toast.makeText(this, "保存しました", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.toast_success_save, Toast.LENGTH_LONG).show();
 
             finish();
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "保存できませんでした", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.toast_fail_save, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -108,21 +110,37 @@ public class SubtaskEditActivity extends ActionBarActivity {
 
     // Delete Button
     public void onClickDelete(View v) {
-        try {
-            // Database接続
-            DatabaseHelper dbHelper = new DatabaseHelper(v.getContext());
-            db = dbHelper.getWritableDatabase();
-            subTaskDao = new SubTaskDao(db);
+        // Show confirming message.
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle(R.string.edit_alert_title);
+        alertDialogBuilder.setMessage(R.string.subtask_edit_alert_message);
+        alertDialogBuilder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            if (subTaskDao.deleteBySubTaskID(subTask.getSubTaskID()) < 0) {
+                                throw new Exception("could not delete Subtask");
+                            }
+                            Toast.makeText(SubtaskEditActivity.this, R.string.toast_success_delete, Toast.LENGTH_LONG).show();
+                            finish();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(SubtaskEditActivity.this, R.string.toast_fail_delete, Toast.LENGTH_LONG).show();
+                        }
+                        finish();
+                    }
+                });
+        alertDialogBuilder.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-            if (subTaskDao.deleteBySubTaskID(subTask.getSubTaskID()) < 0) {
-                throw new Exception("could not delete Task");
-            }
-            Toast.makeText(this, "削除しました", Toast.LENGTH_LONG).show();
-            finish();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, "削除できませんでした", Toast.LENGTH_LONG).show();
-        }
+                    }
+                });
+        alertDialogBuilder.setCancelable(true);
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     @Override

@@ -79,7 +79,7 @@ public class CalendarView extends View {
 
             // 土日の場合は背景に色をつける
             if (dayOfWeek == 6 || dayOfWeek == 7) {
-                canvas.drawRect(dx*i, height/2, dx*(i+1)-1, height, mFillPaint);
+                canvas.drawRect(dx*i, height/2, dx*(i+1), height, mFillPaint);
             }
 
             // 日を描画

@@ -1,6 +1,6 @@
 package com.nama_gatsuo.dreamplan;
 
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -69,7 +68,13 @@ public class ProjectCardActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_license) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.license_title);
+            builder.setMessage(R.string.license_message);
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
             return true;
         }
 
@@ -131,7 +136,7 @@ public class ProjectCardActivity extends ActionBarActivity {
                 });
 
                 holder.pj_image.setImageResource(R.drawable.image);
-                holder.pj_name.setText("Create Plan");
+                holder.pj_name.setText("+ Project");
             } else {
                 // Existing Project Block
                 String imagePath = _project.getImagePath();

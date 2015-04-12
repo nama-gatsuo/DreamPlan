@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">DreamPlan</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_license">License</string>
 
     <string-array name="spnStatus_items">
         <item id="0">0%</item>
@@ -29,7 +29,47 @@
     <string name="title_activity_project_edit">Edit Project</string>
     <string name="title_activity_task_edit">Edit Task</string>
     <string name="title_activity_subtask_edit">Edit Subtask</string>
-    <string name="title_activity_task_gantt">TaskGanttActivity</string>
 
     <string name="empty_text">No items found.\nSqueeze out your tasks!</string>
+
+    <string name="edit_alert_title">Confirm!</string>
+    <string name="project_edit_alert_message">This task may have several tasks.\nAll of them will be deleted. OK?</string>
+    <string name="task_edit_alert_message">This task may have several tasks.\nAll of them will be deleted. OK?</string>
+    <string name="subtask_edit_alert_message">This cannot be restored. OK?</string>
+
+    <string name="toast_success_delete">Deleted successfully.</string>
+    <string name="toast_fail_delete">Oops! Failed to delete.</string>
+
+    <string name="toast_success_save">Saved successfully.</string>
+    <string name="toast_fail_save">Oops! Failed to save.</string>
+
+    <string name="license_title">Open Source License</string>
+    <string name="license_message">
+        This app contains the artifacts that have been distributed by the license of Apache License, Version 2.0 .\n
+        \n
+        Apache License, Version 2.0\n
+        <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a> \n
+        \n
+        Thanks to great contributors for my using those awesome libraries in this app.\n
+        Thanks to:\n
+        \n
+        * android-switch-backport\n
+        <a href="https://github.com/BoD/android-switch-backport">https://github.com/BoD/android-switch-backport</a> \n
+        \n
+        * better-pikckers\n
+        <a href="https://github.com/derekbrameyer/android-betterpickers">https://github.com/derekbrameyer/android-betterpickers</a> \n
+        \n
+        * android-floating-action-button\n
+        <a href="https://github.com/futuresimple/android-floating-action-button">https://github.com/futuresimple/android-floating-action-button</a> \n
+        \n
+        * joda-time-android\n
+        <a href="https://github.com/dlew/joda-time-android">https://github.com/dlew/joda-time-android</a> \n
+        \n
+        * Paralloid\n
+        <a href="https://github.com/chrisjenx/Paralloid">https://github.com/chrisjenx/Paralloid</a> \n
+        \n
+        * TableFixHeaders\n
+        <a href="https://github.com/InQBarna/TableFixHeaders">https://github.com/InQBarna/TableFixHeaders</a>
+    </string>
+
 </resources>

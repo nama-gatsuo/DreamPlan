@@ -42,6 +42,8 @@ public class BarView extends View {
 
     private int diff = 10;
 
+    private BlurMaskFilter blur;
+
     public BarView(Context context) {
         this(context, null);
     }
@@ -55,16 +57,16 @@ public class BarView extends View {
         setWillNotDraw(false);
 
         mFillPaint1 = new Paint();
-        mFillPaint1.setColor(getResources().getColor(R.color.accent));
+        mFillPaint1.setColor(getResources().getColor(R.color.bar_don));
 
         mFillPaint2 = new Paint();
-        mFillPaint2.setColor(getResources().getColor(R.color.primary));
+        mFillPaint2.setColor(getResources().getColor(R.color.bar_undone));
 
         shadow = new Paint();
         shadow.setAntiAlias(true);
-        shadow.setStyle(Paint.Style.FILL);
-        shadow.setColor(Color.argb(112, 0, 0, 0));
-        BlurMaskFilter blur = new BlurMaskFilter(8, BlurMaskFilter.Blur.NORMAL);
+        shadow.setColor(Color.argb(96, 0, 0, 0));
+
+        BlurMaskFilter blur = new BlurMaskFilter(3.0f, BlurMaskFilter.Blur.NORMAL);
         shadow.setMaskFilter(blur);
     }
 

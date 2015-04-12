@@ -1,5 +1,7 @@
 package com.nama_gatsuo.dreamplan;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,7 +10,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -26,8 +27,6 @@ import com.nama_gatsuo.dreamplan.dao.TaskDao;
 import com.nama_gatsuo.dreamplan.model.Project;
 
 import org.joda.time.DateTime;
-
-import java.io.File;
 
 import uk.co.chrisjenx.paralloid.views.ParallaxScrollView;
 
@@ -183,12 +182,12 @@ public class ProjectEditActivity extends ActionBarActivity {
             if (projectDao.save(project) < 0) {
                 throw new Exception("could not save Task");
             }
-            Toast.makeText(this, "保存しました", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.toast_success_save, Toast.LENGTH_LONG).show();
 
             finish();
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "保存できませんでした", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.toast_fail_save, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -199,20 +198,41 @@ public class ProjectEditActivity extends ActionBarActivity {
 
     // Delete Button
     public void onClickDelete(View v) {
-        // 本当に削除するか確認
-        try {
-            if (projectDao.deleteByProjectID(project.getProjectID()) < 0 ||
-                    taskDao.deleteByProjectID(project.getProjectID()) < 0 ||
-                    subTaskDao.deleteByProjectID(project.getProjectID()) < 0) {
-                throw new Exception("could not delete Task");
-            }
-            // 配下のSubTaskも削除
-            Toast.makeText(this, "削除しました", Toast.LENGTH_LONG).show();
-            finish();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, "削除できませんでした", Toast.LENGTH_LONG).show();
-        }
+        // Show confirming message.
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle(R.string.edit_alert_title);
+        alertDialogBuilder.setMessage(R.string.project_edit_alert_message);
+        alertDialogBuilder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Delete this project and its children.
+                        try {
+                            if (projectDao.deleteByProjectID(project.getProjectID()) < 0 ||
+                                    taskDao.deleteByProjectID(project.getProjectID()) < 0 ||
+                                    subTaskDao.deleteByProjectID(project.getProjectID()) < 0) {
+                                throw new Exception("could not delete Task");
+                            }
+                            // 配下のSubTaskも削除
+                            Toast.makeText(ProjectEditActivity.this, R.string.toast_success_delete, Toast.LENGTH_LONG).show();
+                            finish();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(ProjectEditActivity.this, R.string.toast_fail_delete, Toast.LENGTH_LONG).show();
+                        }
+                        finish();
+                    }
+                });
+        alertDialogBuilder.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        alertDialogBuilder.setCancelable(true);
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     @Override

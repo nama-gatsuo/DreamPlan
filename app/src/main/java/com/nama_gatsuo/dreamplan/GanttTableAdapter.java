@@ -1,6 +1,7 @@
 package com.nama_gatsuo.dreamplan;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.view.Display;
@@ -8,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,6 +18,7 @@ import com.inqbarna.tablefixheaders.adapters.BaseTableAdapter;
 import com.nama_gatsuo.dreamplan.View.BarView;
 import com.nama_gatsuo.dreamplan.View.CalendarView;
 import com.nama_gatsuo.dreamplan.View.ScaleView;
+import com.nama_gatsuo.dreamplan.View.SubtaskBarView;
 import com.nama_gatsuo.dreamplan.dao.SubTaskDao;
 import com.nama_gatsuo.dreamplan.dao.TaskDao;
 import com.nama_gatsuo.dreamplan.model.Project;
@@ -27,7 +31,6 @@ import org.joda.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by nagamatsuayumu on 15/03/27.
@@ -234,32 +237,58 @@ public class GanttTableAdapter extends BaseTableAdapter {
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dy);
 
         for (int i = 0; i < groups.size(); i++) {
-            Task _task = groups.get(i);
+            final Task _task = groups.get(i);
+
             BarView task_bar = new BarView(activity);
             task_bar.setMinimumHeight(dy);
             task_bar.setRange(minDate, maxDate);
             task_bar.setDimen(dx, dy);
             task_bar.setTask(_task);
 
+            task_bar.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Intent i = new Intent(activity, TaskEditActivity.class);
+
+                    i.putExtra("Task", _task);
+                    activity.startActivity(i);
+                    return true;
+                }
+            });
+
             bars.addView(task_bar, lp);
 
             List<SubTask> _children = children.get(i);
 
             for (int j = 0; j < _children.size(); j++) {
-                Task _subtask = _children.get(j);
+                final Task _subtask = _children.get(j);
 
-                BarView subtask_bar = new BarView(activity);
+                SubtaskBarView subtask_bar = new SubtaskBarView(activity);
                 subtask_bar.setMinimumHeight(dy);
                 subtask_bar.setRange(minDate, maxDate);
                 subtask_bar.setDimen(dx, dy);
                 subtask_bar.setTask(_subtask);
 
+                subtask_bar.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        Intent i = new Intent(activity, SubtaskEditActivity.class);
+
+                        i.putExtra("SubTask", _subtask);
+                        activity.startActivity(i);
+                        return true;
+                    }
+                });
+
                 bars.addView(subtask_bar, lp);
             }
         }
+        // Start animation
+        Animation anim = AnimationUtils.loadAnimation(convertView.getContext(), R.anim.item_motion);
+        bars.setAnimation(anim);
+
         return convertView;
     }
-
 
     @Override
     public int getWidth(int column) {

@@ -27,10 +27,6 @@ public class DateView extends TextView implements CalendarDatePickerDialog.OnDat
         super(context, attrs, defStyleAttr);
     }
 
-    public DateView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
     @Override
     public void onDateSet(CalendarDatePickerDialog calendarDatePickerDialog, int year, int month, int day) {
         dt = new DateTime().withDate(year, month + 1, day).withTimeAtStartOfDay();

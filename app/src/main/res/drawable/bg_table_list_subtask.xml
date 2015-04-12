@@ -3,7 +3,7 @@
     <item android:left="10dp">
         <shape android:shape="rectangle">
             <solid
-                android:color="@color/list_item_bg" />
+                android:color="#f5f6f7" />
         </shape>
     </item>
 </layer-list>
