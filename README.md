@@ -1,6 +1,6 @@
 # DreamPlan
 
-![promotion](https://raw.github.com/nama-gatsuo/DreamPlan/web/DreamPlan_promotion.png "promotion")
+![promotion](https://github.com/nama-gatsuo/DreamPlan/blob/master/web/DreamPlan_promotion.png "promotion")
 
 ## What is it?
 This is an Android app to make WBS and Gantt chart.
@@ -22,8 +22,8 @@ Thanks to great contributors for my using those awesome libraries in this app.
 
 ## ScreenShot
 
-![screenshot 1](https://raw.github.com/nama-gatsuo/DreamPlan/web/3.png "screenshot 1")
-![screenshot 2](https://raw.github.com/nama-gatsuo/DreamPlan/web/4.png "screenshot 2")
+![screenshot 1](https://github.com/nama-gatsuo/DreamPlan/blob/master/web/3.png "screenshot 1")
+![screenshot 2](https://github.com/nama-gatsuo/DreamPlan/blob/master/web/4.png "screenshot 2")
 
 ## License
 Copyright 2015-2016 Ayumu Nagamatsu
