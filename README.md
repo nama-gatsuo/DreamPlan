@@ -4,7 +4,7 @@
 
 ## What is it?
 This is an Android app to make WBS and Gantt chart.
-Now you can get it form googleplay.
+Now you can get it from [googleplay](https://play.google.com/store/apps/details?id=com.nama_gatsuo.dreamplan).
 
 ## Technical Information
 Required minimun API: 14
