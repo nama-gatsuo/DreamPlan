@@ -14,6 +14,7 @@ This app contains the artifacts that have been distributed by the license of Apa
 Thanks to great contributors for my using those awesome libraries in this app.
 
 * [android-switch-backport](https://github.com/BoD/android-switch-backport)
+* [AnimatedExpandableListView](https://github.com/idunnololz/AnimatedExpandableListView)
 * [better-pikckers](https://github.com/derekbrameyer/android-betterpickers)
 * [android-floating-action-button](https://github.com/futuresimple/android-floating-action-button)
 * [joda-time-android](https://github.com/dlew/joda-time-android)
@@ -30,4 +31,3 @@ Thanks to great contributors for my using those awesome libraries in this app.
 
 ## Author
 [nama-gatsuo](https://github.com/nama-gatsuo)
-
