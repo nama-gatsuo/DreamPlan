@@ -22,7 +22,7 @@
             android:id="@+id/task_edit_name"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="Task Name"
+            android:hint="Task Name"
             android:background="@color/list_item_bg"/>
 
         <View

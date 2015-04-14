@@ -67,10 +67,17 @@ public class TaskEditActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
-                DateTime now = DateTime.now().withTimeAtStartOfDay();
+
+                // Fragmentに渡す日付を決定
+                DateTime dt;
+                if (startDate.getText().toString().length() == 0) {
+                    dt = DateTime.now().withTimeAtStartOfDay();
+                } else {
+                    dt = new DateTime().withMillis(startDate.getDate());
+                }
                 CalendarDatePickerDialog cdpd = CalendarDatePickerDialog
-                        .newInstance(startDate, now.getYear(), now.getMonthOfYear() - 1,
-                                now.getDayOfMonth());
+                        .newInstance(startDate, dt.getYear(), dt.getMonthOfYear() - 1,
+                                dt.getDayOfMonth());
                 cdpd.show(fm, FRAG_TAG_DATE_PICKER);
             }
         });
@@ -80,11 +87,18 @@ public class TaskEditActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
-                DateTime now = DateTime.now().withTimeAtStartOfDay();
-                CalendarDatePickerDialog calendarDatePickerDialog = CalendarDatePickerDialog
-                        .newInstance(endDate, now.getYear(), now.getMonthOfYear() - 1,
-                                now.getDayOfMonth());
-                calendarDatePickerDialog.show(fm, FRAG_TAG_DATE_PICKER);
+
+                // Fragmentに渡す日付を決定
+                DateTime dt;
+                if (endDate.getText().toString().length() == 0) {
+                    dt = DateTime.now().withTimeAtStartOfDay();
+                } else {
+                    dt = new DateTime().withMillis(endDate.getDate());
+                }
+                CalendarDatePickerDialog cdpd = CalendarDatePickerDialog
+                        .newInstance(endDate, dt.getYear(), dt.getMonthOfYear() - 1,
+                                dt.getDayOfMonth());
+                cdpd.show(fm, FRAG_TAG_DATE_PICKER);
             }
         });
     }

@@ -34,7 +34,7 @@
                 android:id="@+id/pj_edit_name"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:text="Project Name"
+                android:hint="Project Name"
                 android:background="@color/list_item_bg"/>
 
             <View

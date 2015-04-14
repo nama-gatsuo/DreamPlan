@@ -20,7 +20,7 @@
             android:id="@+id/subTask_edit_name"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="Subtask Name"
+            android:hint="Subtask Name"
             android:background="@color/list_item_bg"/>
 
         <View

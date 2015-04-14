@@ -147,10 +147,17 @@ public class ProjectEditActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
-                DateTime now = DateTime.now().withTimeAtStartOfDay();
+
+                // Fragmentに渡す日付を決定
+                DateTime dt;
+                if (holder.startDate.getText().toString().length() == 0) {
+                    dt = DateTime.now().withTimeAtStartOfDay();
+                } else {
+                    dt = new DateTime().withMillis(holder.startDate.getDate());
+                }
                 CalendarDatePickerDialog cdpd = CalendarDatePickerDialog
-                        .newInstance(holder.startDate, now.getYear(), now.getMonthOfYear() - 1,
-                                now.getDayOfMonth());
+                        .newInstance(holder.startDate, dt.getYear(), dt.getMonthOfYear() - 1,
+                                dt.getDayOfMonth());
                 cdpd.show(fm, FRAG_TAG_DATE_PICKER);
             }
         });
@@ -160,11 +167,18 @@ public class ProjectEditActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
-                DateTime now = DateTime.now().withTimeAtStartOfDay();
-                CalendarDatePickerDialog calendarDatePickerDialog = CalendarDatePickerDialog
-                        .newInstance(holder.endDate, now.getYear(), now.getMonthOfYear() - 1,
-                                now.getDayOfMonth());
-                calendarDatePickerDialog.show(fm, FRAG_TAG_DATE_PICKER);
+
+                // Fragmentに渡す日付を決定
+                DateTime dt;
+                if (holder.endDate.getText().toString().length() == 0) {
+                    dt = DateTime.now().withTimeAtStartOfDay();
+                } else {
+                    dt = new DateTime().withMillis(holder.endDate.getDate());
+                }
+                CalendarDatePickerDialog cdpd = CalendarDatePickerDialog
+                        .newInstance(holder.endDate, dt.getYear(), dt.getMonthOfYear() - 1,
+                                dt.getDayOfMonth());
+                cdpd.show(fm, FRAG_TAG_DATE_PICKER);
             }
         });
     }
