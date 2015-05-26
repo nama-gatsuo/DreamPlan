@@ -42,6 +42,7 @@ MERGED from org.jraf:android-switch-backport:1.4.0:35:5
 MERGED from net.danlew:android.joda:2.7.1:11:5
 MERGED from DreamPlan.libraries:paralloid:unspecified:11:5
 MERGED from com.android.support:support-v4:21.0.3:16:5
+MERGED from DreamPlan.libraries:tablefixheaders:unspecified:11:5
 MERGED from DreamPlan.libraries:AnimatedExpandableListView:unspecified:11:5
 MERGED from com.android.support:appcompat-v7:21.0.3:16:5
 MERGED from com.android.support:support-v4:21.0.3:16:5
@@ -97,3 +98,9 @@ uses-permission#android.permission.VIBRATE
 ADDED from com.doomonafireball.betterpickers:library:1.5.4:11:5
 	android:name
 		ADDED from com.doomonafireball.betterpickers:library:1.5.4:11:22
+activity#com.example.animatedexpandablelistview.MainActivity
+ADDED from DreamPlan.libraries:AnimatedExpandableListView:unspecified:16:9
+	android:label
+		ADDED from DreamPlan.libraries:AnimatedExpandableListView:unspecified:18:13
+	android:name
+		ADDED from DreamPlan.libraries:AnimatedExpandableListView:unspecified:17:13

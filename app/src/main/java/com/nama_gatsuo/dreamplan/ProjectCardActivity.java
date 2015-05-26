@@ -1,5 +1,7 @@
 package com.nama_gatsuo.dreamplan;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,10 +9,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,6 +55,11 @@ public class ProjectCardActivity extends ActionBarActivity {
         ProjectCardAdapter adapter = new ProjectCardAdapter(this, R.layout.project_line_item, projects);
         lv.setAdapter(adapter);
         lv.setVerticalScrollBarEnabled(false);
+        lv.setDivider(null);
+        lv.setSelector(android.R.color.transparent);
+
+        // add footer view
+        lv.addFooterView(LayoutInflater.from(this).inflate(R.layout.list_footer, lv, false));
     }
 
     @Override
@@ -84,6 +93,7 @@ public class ProjectCardActivity extends ActionBarActivity {
     public class ProjectCardAdapter extends ArrayAdapter {
         List<Project> projects;
         int resource;
+        int mAnimatedPosition = ListView.INVALID_POSITION;
 
         private class ViewHolder {
             ImageView pj_image;
@@ -123,6 +133,8 @@ public class ProjectCardActivity extends ActionBarActivity {
 
             if (position == projects.size() - 1) {
                 // Create New Project Block
+                holder.pj_status.setStatus(0);
+                holder.pj_status.invalidate();
                 holder.pj_status.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -167,6 +179,7 @@ public class ProjectCardActivity extends ActionBarActivity {
                 }
 
                 holder.pj_status.setStatus(_project.getStatus());
+                holder.pj_status.invalidate();
                 holder.pj_status.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -190,6 +203,13 @@ public class ProjectCardActivity extends ActionBarActivity {
 
                 DateTime edt = new DateTime().withMillis(_project.getEndDate());
                 holder.pj_endDate.setText(edt.toString(DateTimeFormat.forPattern("MM/dd")));
+            }
+
+            if (mAnimatedPosition < position) {
+                Animator animator = AnimatorInflater.loadAnimator(getContext(), R.animator.card_slide_in);
+                animator.setTarget(convertView);
+                animator.start();
+                mAnimatedPosition = position;
             }
 
             return convertView;

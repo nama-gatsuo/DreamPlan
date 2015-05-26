@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/libraries/AnimatedExpandableListView/AnimatedExpandableListView.iml" filepath="$PROJECT_DIR$/libraries/AnimatedExpandableListView/AnimatedExpandableListView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/AnimatedExpandableListView/AnimatedExpandableListView.iml" filepath="$PROJECT_DIR$/libraries/AnimatedExpandableListView/AnimatedExpandableListView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DreamPlan.iml" filepath="$PROJECT_DIR$/DreamPlan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/libraries.iml" filepath="$PROJECT_DIR$/libraries/libraries.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/libraries.iml" filepath="$PROJECT_DIR$/libraries/libraries.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/paralloid/paralloid.iml" filepath="$PROJECT_DIR$/libraries/paralloid/paralloid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/tablefixheaders/tablefixheaders.iml" filepath="$PROJECT_DIR$/libraries/tablefixheaders/tablefixheaders.iml" />
+    </modules>
+  </component>
+</project>

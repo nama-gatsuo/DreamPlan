@@ -1,0 +1,4 @@
+include ':app'
+include ':libraries:paralloid'
+include ':libraries:AnimatedExpandableListView'
+include ':libraries:tablefixheaders'

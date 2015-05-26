@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/nagamatsuayumu/AndroidStudioProjects/DreamPlan/libraries/tablefixheaders/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="shadow_end">#00000000</color>
+    <color name="shadow_start">#80000000</color>
+    <!-- From: file:/Users/nagamatsuayumu/AndroidStudioProjects/DreamPlan/libraries/tablefixheaders/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="shadow_size">8dip</dimen>
+    <!-- From: file:/Users/nagamatsuayumu/AndroidStudioProjects/DreamPlan/libraries/tablefixheaders/src/main/res/values/ids.xml -->
+    <eat-comment/>
+    <item name="tag_column" type="id"/>
+    <item name="tag_row" type="id"/>
+    <item name="tag_type_view" type="id"/>
+</resources>

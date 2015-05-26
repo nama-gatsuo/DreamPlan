@@ -108,6 +108,9 @@ public class TaskListFragment extends Fragment {
             }
         });
 
+        // add footer view
+        elv.addFooterView(LayoutInflater.from(parent).inflate(R.layout.list_footer, elv, false));
+
         // In order to show animations, we need to use a custom click handler
         // for our ExpandableListView.
         elv.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
